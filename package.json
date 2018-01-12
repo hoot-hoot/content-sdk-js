@@ -1,0 +1,56 @@
+{
+    "name": "@hoot-hoot/content-sdk-js",
+    "version": "0.0.0",
+    "description": "The SDK for the content serivce",
+    "author": "Hoot-Hoot team",
+    "scripts": {
+        "build": "tsc",
+        "pretest": "tsc",
+        "test-dev": "tsc --watch & mocha --watch $(find out -name '*-test.js')",
+        "test": "tsc && istanbul cover --config ./.istanbul.yml ./node_modules/mocha/bin/_mocha --  $(find out -name '*-test.js') && remap-istanbul -i ./build/coverage/coverage-final.json -o ./build/coverage/coverage-remapped.json && coverage-filter -i ./build/coverage/coverage-remapped.json -o ./build/coverage/coverage-filtered.json",
+        "push-coverage-to-codecov": "codecov -f ./build/coverage/coverage-filtered.json",
+        "docs": "typedoc src/"
+    },
+    "keywords": [
+        "common",
+        "client",
+        "content",
+        "sdk",
+        "server"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/hoot-hoot/content-sdk-js.git"
+    },
+    "homepage": "https://github.com/hoot-hoot/content-sdk-js#readme",
+    "license": "MIT",
+    "main": "./index.js",
+    "types": "./index.d.ts",
+    "filesPack": {
+        "out": "e:.",
+        "README.md": "f:README.md",
+        "package.json": "f:package.json",
+        "tsconfig.json": "f:tsconfig.json"
+    },
+    "dependencies": {
+        "@hoot-hoot/common-js": "=0.0.0",
+        "@hoot-hoot/identity-sdk-js": "=0.0.0",
+        "raynor": "0.12.0"
+    },
+    "devDependencies": {
+        "@hoot-hoot/togemfury": "=0.0.0",
+        "@types/chai": "=4.0.4",
+        "@types/istanbul": "=0.4.29",
+        "@types/mocha": "=2.2.38",
+        "@types/node": "=8.0.34",
+        "chai": "=4.1.2",
+        "codecov": "=2.3.0",
+        "coverage-filter": "=1.0.0",
+        "istanbul": "=0.4.5",
+        "mocha": "=4.0.1",
+        "remap-istanbul": "=0.9.5",
+        "testdouble": "=3.2.6",
+        "typedoc": "=0.9.0",
+        "typescript": "=2.5.3"
+    }
+}
