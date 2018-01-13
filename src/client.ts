@@ -1,4 +1,4 @@
-import { SessionToken } from '@hoot-hoot/identity-sdk-js/session-token'
+import { SessionToken } from '@truesparrow/identity-sdk-js/session-token'
 
 import {
     Blog,
