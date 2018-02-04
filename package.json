@@ -1,6 +1,6 @@
 {
     "name": "@truesparrow/content-sdk-js",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "The SDK for the content serivce",
     "author": "CHM SQRT2 Team",
     "scripts": {
@@ -33,12 +33,12 @@
         "tsconfig.json": "f:tsconfig.json"
     },
     "dependencies": {
-        "@truesparrow/common-js": "=0.0.1",
-        "@truesparrow/identity-sdk-js": "=0.0.1",
+        "@truesparrow/common-js": "latest",
+        "@truesparrow/identity-sdk-js": "latest",
         "raynor": "0.12.0"
     },
     "devDependencies": {
-        "@truesparrow/togemfury": "=0.0.3",
+        "@truesparrow/togemfury": "latest",
         "@types/chai": "=4.0.4",
         "@types/istanbul": "=0.4.29",
         "@types/mocha": "=2.2.38",
