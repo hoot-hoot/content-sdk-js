@@ -42,7 +42,7 @@ export interface UpdateEventOptions {
 /**
  * A client for interacting with the content service. This is meant for the user's interaction with
  * their own event. So it contains mutating operations and, in general, privileged operations.
- * @note There is a notion of call context, with is the user's identity. In a browser/client
+ * @note There is a notion of call context, which is the user's identity. In a browser/client
  * environment this is implicit, and provided by standard methods (cookies). In a server
  * environment, this must be made explicit, via the {@link withContext} call. In any case, any
  * operation made is relative to the current user.
