@@ -81,6 +81,8 @@
 							<h3>Classes</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_client_.contenterror.html" class="tsd-kind-icon">Content<wbr>Error</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported"><a href="../classes/_client_.contentprivateclientimpl.html" class="tsd-kind-icon">Content<wbr>Private<wbr>Client<wbr>Impl</a></li>
+								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_client_.deletedeventforusererror.html" class="tsd-kind-icon">Deleted<wbr>Event<wbr>For<wbr>User<wbr>Error</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_client_.noeventforusererror.html" class="tsd-kind-icon">No<wbr>Event<wbr>For<wbr>User<wbr>Error</a></li>
 								<li class="tsd-kind-class tsd-parent-kind-external-module"><a href="../classes/_client_.unauthorizedcontenterror.html" class="tsd-kind-icon">Unauthorized<wbr>Content<wbr>Error</a></li>
 							</ul>
@@ -92,7 +94,67 @@
 								<li class="tsd-kind-interface tsd-parent-kind-external-module"><a href="../interfaces/_client_.updateeventoptions.html" class="tsd-kind-icon">Update<wbr>Event<wbr>Options</a></li>
 							</ul>
 						</section>
+						<section class="tsd-index-section ">
+							<h3>Functions</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-function tsd-parent-kind-external-module"><a href="_client_.html#newcontentprivateclient" class="tsd-kind-icon">new<wbr>Content<wbr>Private<wbr>Client</a></li>
+							</ul>
+						</section>
 					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Functions</h2>
+				<section class="tsd-panel tsd-member tsd-kind-function tsd-parent-kind-external-module">
+					<a name="newcontentprivateclient" class="tsd-anchor"></a>
+					<h3>new<wbr>Content<wbr>Private<wbr>Client</h3>
+					<ul class="tsd-signatures tsd-kind-function tsd-parent-kind-external-module">
+						<li class="tsd-signature tsd-kind-icon">new<wbr>Content<wbr>Private<wbr>Client<span class="tsd-signature-symbol">(</span>env<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Env</span>, origin<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, contentServiceHost<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, webFetcher<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">WebFetcher</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../interfaces/_client_.contentprivateclient.html" class="tsd-signature-type">ContentPrivateClient</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/0bd837b/src/client.ts#L117">client.ts:117</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Create a <a href="../interfaces/_client_.contentprivateclient.html">ContentPrivateClient</a>.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>env: <span class="tsd-signature-type">Env</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the {@link Env} the client is running in.</p>
+									</div>
+								</li>
+								<li>
+									<h5>origin: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin" class="external">origin</a>
+										to use for the requests originating from the client. Doesn&#39;t &quot;change&quot; things for browser work.</p>
+									</div>
+								</li>
+								<li>
+									<h5>contentServiceHost: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the hostname for the content service servers.</p>
+									</div>
+								</li>
+								<li>
+									<h5>webFetcher: <span class="tsd-signature-type">WebFetcher</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>a {@link WebFetcher} to use to make requests.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="../interfaces/_client_.contentprivateclient.html" class="tsd-signature-type">ContentPrivateClient</a></h4>
+							<p>a new <a href="../interfaces/_client_.contentprivateclient.html">ContentPrivateClient</a>. On server there&#39;s no context, whereas on the browser it&#39;s implied.</p>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -104,6 +166,9 @@
 					</li>
 					<li class="current tsd-kind-external-module">
 						<a href="_client_.html">"client"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="_dtos_.html">"dtos"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="_entities_.html">"entities"</a>
@@ -121,6 +186,12 @@
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="../classes/_client_.contenterror.html" class="tsd-kind-icon">Content<wbr>Error</a>
 					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../classes/_client_.contentprivateclientimpl.html" class="tsd-kind-icon">Content<wbr>Private<wbr>Client<wbr>Impl</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="../classes/_client_.deletedeventforusererror.html" class="tsd-kind-icon">Deleted<wbr>Event<wbr>For<wbr>User<wbr>Error</a>
+					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="../classes/_client_.noeventforusererror.html" class="tsd-kind-icon">No<wbr>Event<wbr>For<wbr>User<wbr>Error</a>
 					</li>
@@ -132,6 +203,9 @@
 					</li>
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="../interfaces/_client_.updateeventoptions.html" class="tsd-kind-icon">Update<wbr>Event<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="_client_.html#newcontentprivateclient" class="tsd-kind-icon">new<wbr>Content<wbr>Private<wbr>Client</a>
 					</li>
 				</ul>
 			</nav>

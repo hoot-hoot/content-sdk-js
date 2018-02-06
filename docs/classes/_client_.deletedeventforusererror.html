@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Event | content-sdk-js</title>
+	<title>DeletedEventForUserError | content-sdk-js</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,13 +56,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_entities_.html">&quot;entities&quot;</a>
+					<a href="../modules/_client_.html">&quot;client&quot;</a>
 				</li>
 				<li>
-					<a href="_entities_.event.html">Event</a>
+					<a href="_client_.deletedeventforusererror.html">DeletedEventForUserError</a>
 				</li>
 			</ul>
-			<h1>Class Event</h1>
+			<h1>Class DeletedEventForUserError</h1>
 		</div>
 	</div>
 </header>
@@ -72,7 +72,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Details about an event.</p>
+						<p>An error raised when an action on a user with a deleted event.</p>
 					</div>
 				</div>
 			</section>
@@ -80,7 +80,12 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Event</span>
+						<a href="_client_.contenterror.html" class="tsd-signature-type">ContentError</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">DeletedEventForUserError</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -89,94 +94,84 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="_client_.deletedeventforusererror.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.event.html#id" class="tsd-kind-icon">id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.event.html#state" class="tsd-kind-icon">state</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.event.html#subeventdetails" class="tsd-kind-icon">sub<wbr>Event<wbr>Details</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.event.html#timecreated" class="tsd-kind-icon">time<wbr>Created</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.event.html#timelastupdated" class="tsd-kind-icon">time<wbr>Last<wbr>Updated</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_client_.deletedeventforusererror.html#message" class="tsd-kind-icon">message</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_client_.deletedeventforusererror.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-static"><a href="_client_.deletedeventforusererror.html#stack" class="tsd-kind-icon">stack</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Deleted<wbr>Event<wbr>For<wbr>User<wbr>Error<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_client_.deletedeventforusererror.html" class="tsd-signature-type">DeletedEventForUserError</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides <a href="_client_.contenterror.html">ContentError</a>.<a href="_client_.contenterror.html#constructor">constructor</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/0bd837b/src/client.ts#L43">client.ts:43</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>message: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_client_.deletedeventforusererror.html" class="tsd-signature-type">DeletedEventForUserError</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="id" class="tsd-anchor"></a>
-					<h3>id</h3>
-					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+					<a name="message" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> message</h3>
+					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from Error.message</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/0bd837b/src/entities.ts#L61">entities.ts:61</a></li>
+							<li>Defined in /Users/Horia/WorkA/truesparrow/content-sdk-js/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:874</li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The globally unique id of the event.</p>
-						</div>
-					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="state" class="tsd-anchor"></a>
-					<h3>state</h3>
-					<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <a href="../enums/_entities_.eventstate.html" class="tsd-signature-type">EventState</a></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+					<a name="name" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from Error.name</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/0bd837b/src/entities.ts#L65">entities.ts:65</a></li>
+							<li>Defined in /Users/Horia/WorkA/truesparrow/content-sdk-js/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:873</li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The state of the event.</p>
-						</div>
-					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="subeventdetails" class="tsd-anchor"></a>
-					<h3>sub<wbr>Event<wbr>Details</h3>
-					<div class="tsd-signature tsd-kind-icon">sub<wbr>Event<wbr>Details<span class="tsd-signature-symbol">:</span> <a href="_entities_.subeventdetails.html" class="tsd-signature-type">SubEventDetails</a><span class="tsd-signature-symbol">[]</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-static">
+					<a name="stack" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagOptional">Optional</span> stack</h3>
+					<div class="tsd-signature tsd-kind-icon">stack<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from Error.stack</p>
+						<p>Overrides Error.stack</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/0bd837b/src/entities.ts#L69">entities.ts:69</a></li>
+							<li>Defined in /Users/Horia/WorkA/truesparrow/content-sdk-js/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:875</li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The various sub-events making up the event.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="timecreated" class="tsd-anchor"></a>
-					<h3>time<wbr>Created</h3>
-					<div class="tsd-signature tsd-kind-icon">time<wbr>Created<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/0bd837b/src/entities.ts#L73">entities.ts:73</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The time the event was created.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="timelastupdated" class="tsd-anchor"></a>
-					<h3>time<wbr>Last<wbr>Updated</h3>
-					<div class="tsd-signature tsd-kind-icon">time<wbr>Last<wbr>Updated<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/0bd837b/src/entities.ts#L77">entities.ts:77</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The time the event was last updated.</p>
-						</div>
-					</div>
 				</section>
 			</section>
 		</div>
@@ -186,13 +181,13 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class="current tsd-kind-external-module">
 						<a href="../modules/_client_.html">"client"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_dtos_.html">"dtos"</a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_entities_.html">"entities"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -205,38 +200,47 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
-						<a href="../enums/_entities_.eventstate.html" class="tsd-kind-icon">Event<wbr>State</a>
-					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.addressmarshaller.html" class="tsd-kind-icon">Address<wbr>Marshaller</a>
+						<a href="_client_.contenterror.html" class="tsd-kind-icon">Content<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_client_.contentprivateclientimpl.html" class="tsd-kind-icon">Content<wbr>Private<wbr>Client<wbr>Impl</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.event.html" class="tsd-kind-icon">Event</a>
+						<a href="_client_.deletedeventforusererror.html" class="tsd-kind-icon">Deleted<wbr>Event<wbr>For<wbr>User<wbr>Error</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_entities_.event.html#id" class="tsd-kind-icon">id</a>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_client_.deletedeventforusererror.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_entities_.event.html#state" class="tsd-kind-icon">state</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+								<a href="_client_.deletedeventforusererror.html#message" class="tsd-kind-icon">message</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_entities_.event.html#subeventdetails" class="tsd-kind-icon">sub<wbr>Event<wbr>Details</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+								<a href="_client_.deletedeventforusererror.html#name" class="tsd-kind-icon">name</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_entities_.event.html#timecreated" class="tsd-kind-icon">time<wbr>Created</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_entities_.event.html#timelastupdated" class="tsd-kind-icon">time<wbr>Last<wbr>Updated</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-static">
+								<a href="_client_.deletedeventforusererror.html#stack" class="tsd-kind-icon">stack</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.subeventdetails.html" class="tsd-kind-icon">Sub<wbr>Event<wbr>Details</a>
+						<a href="_client_.noeventforusererror.html" class="tsd-kind-icon">No<wbr>Event<wbr>For<wbr>User<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_client_.unauthorizedcontenterror.html" class="tsd-kind-icon">Unauthorized<wbr>Content<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="../interfaces/_client_.contentprivateclient.html" class="tsd-kind-icon">Content<wbr>Private<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="../interfaces/_client_.updateeventoptions.html" class="tsd-kind-icon">Update<wbr>Event<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_client_.html#newcontentprivateclient" class="tsd-kind-icon">new<wbr>Content<wbr>Private<wbr>Client</a>
 					</li>
 				</ul>
 			</nav>
