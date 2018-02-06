@@ -5,9 +5,9 @@ export {
 
 export {
     ContentError,
-    UnauthorizedContentError,
+    ContentPrivateClient,
     DeletedEventForUserError,
+    newContentPrivateClient,
     NoEventForUserError,
-    ContentPrivateClient
-    //newContentPrivateClient
+    UnauthorizedContentError
 } from './client'

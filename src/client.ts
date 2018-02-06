@@ -2,13 +2,24 @@
 
 /** Imports. Also so typedoc works correctly. */
 import 'isomorphic-fetch'
-//import { MarshalFrom } from 'raynor'
+import * as HttpStatus from 'http-status-codes'
+import { Marshaller, MarshalFrom } from 'raynor'
 
-///import { Env, isLocal } from '@truesparrow/common-js'
-//import { WebFetcher } from '@truesparrow/common-server-js'
+import { Env, isLocal } from '@truesparrow/common-js'
+import { WebFetcher } from '@truesparrow/common-server-js'
 import { Session } from '@truesparrow/identity-sdk-js'
+import {
+    SESSION_TOKEN_HEADER_NAME,
+    XSRF_TOKEN_HEADER_NAME
+} from '@truesparrow/identity-sdk-js/client'
 import { SessionToken } from '@truesparrow/identity-sdk-js/session-token'
 
+import {
+    CreateEventRequest,
+    PrivateEventResponse,
+    PrivateEventResponseMarshaller,
+    UpdateEventRequest
+} from './dtos'
 import { Event, SubEventDetails } from './entities'
 
 
@@ -70,8 +81,6 @@ export interface ContentPrivateClient {
      * Create an event for the given user.
      * @param session - extra session information to be used by the service. For XSRF protection.
      * @return The new event attached to the user.
-     * @throws When the event already exists, it raises {@link ContentError}.
-     * @throws When the user is not authorized to perform the action, it raises {@link UnauthorizedContentError}.
      */
     createEvent(session: Session): Promise<Event>;
 
@@ -96,325 +105,222 @@ export interface ContentPrivateClient {
 }
 
 
-// /**
-//  * Create a {@link ContentPrivateClient}.
-//  * @param env - the {@link Env} the client is running in.
-//  * @param origin - the [origin]{@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin}
-//  *     to use for the requests originating from the client. Doesn't "change" things for browser work.
-//  * @param contentServiceHost - the hostname for the content service servers.
-//  * @param webFetcher - a {@link WebFetcher} to use to make requests.
-//  * @return a new {@link ContentPrivateClient}. On server there's no context, whereas on the browser it's implied.
-//  */
-// export function newContentPrivateClient(
-//     env: Env,
-//     origin: string,
-//     identityServiceHost: string,
-//     webFetcher: WebFetcher): ContentPrivateClient {
-//     const sessionTokenMarshaller = new (MarshalFrom(SessionToken))();
-//     const sessionAndTokenResponseMarshaller = new (MarshalFrom(SessionAndTokenResponse))();
-//     const sessionResponseMarshaller = new (MarshalFrom(SessionResponse))();
-//     const usersInfoResponseMarshaller = new (MarshalFrom(UsersInfoResponse))();
+/**
+ * Create a {@link ContentPrivateClient}.
+ * @param env - the {@link Env} the client is running in.
+ * @param origin - the [origin]{@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin}
+ *     to use for the requests originating from the client. Doesn't "change" things for browser work.
+ * @param contentServiceHost - the hostname for the content service servers.
+ * @param webFetcher - a {@link WebFetcher} to use to make requests.
+ * @return a new {@link ContentPrivateClient}. On server there's no context, whereas on the browser it's implied.
+ */
+export function newContentPrivateClient(
+    env: Env,
+    origin: string,
+    contentServiceHost: string,
+    webFetcher: WebFetcher): ContentPrivateClient {
+    const sessionTokenMarshaller = new (MarshalFrom(SessionToken))();
+    const createEventRequestMarshaller = new (MarshalFrom(CreateEventRequest))();
+    const updateEventRequestMarshaller = new (MarshalFrom(UpdateEventRequest))();
+    const privateEventResponseMarshaller = new PrivateEventResponseMarshaller();
 
-//     return new ContentPrivateClientImpl(
-//         env,
-//         origin,
-//         identityServiceHost,
-//         webFetcher,
-//         sessionTokenMarshaller,
-//         sessionAndTokenResponseMarshaller,
-//         sessionResponseMarshaller,
-//         usersInfoResponseMarshaller);
-// }
+    return new ContentPrivateClientImpl(
+        env,
+        origin,
+        contentServiceHost,
+        webFetcher,
+        sessionTokenMarshaller,
+        createEventRequestMarshaller,
+        updateEventRequestMarshaller,
+        privateEventResponseMarshaller);
+}
 
 
-// class ContentPrivateClientImpl implements ContentPrivateClient {
-//     private static readonly _getOrCreateSessionOptions: RequestInit = {
-//         method: 'POST',
-//         cache: 'no-cache',
-//         redirect: 'error',
-//         referrer: 'client',
-//     };
+class ContentPrivateClientImpl implements ContentPrivateClient {
+    private static readonly _createEventOptions: RequestInit = {
+        method: 'POST',
+        cache: 'no-cache',
+        redirect: 'error',
+        referrer: 'client',
+    };
 
-//     private static readonly _getSessionOptions: RequestInit = {
-//         method: 'GET',
-//         cache: 'no-cache',
-//         redirect: 'error',
-//         referrer: 'client',
-//     };
+    private static readonly _updateEventOptions: RequestInit = {
+        method: 'PUT',
+        cache: 'no-cache',
+        redirect: 'error',
+        referrer: 'client',
+    };
 
-//     private static readonly _expireSessionOptions: RequestInit = {
-//         method: 'DELETE',
-//         cache: 'no-cache',
-//         redirect: 'error',
-//         referrer: 'client',
-//     };
+    private static readonly _getEventOptions: RequestInit = {
+        method: 'GET',
+        cache: 'no-cache',
+        redirect: 'error',
+        referrer: 'client',
+    };
 
-//     private static readonly _agreeToCookiePolicyForSessionOptions: RequestInit = {
-//         method: 'POST',
-//         cache: 'no-cache',
-//         redirect: 'error',
-//         referrer: 'client',
-//     };
+    private readonly _env: Env;
+    private readonly _origin: string;
+    private readonly _contentServiceHost: string;
+    private readonly _webFetcher: WebFetcher;
+    private readonly _sessionTokenMarshaller: Marshaller<SessionToken>;
+    private readonly _createEventRequestMarshaller: Marshaller<CreateEventRequest>;
+    private readonly _updateEventRequestMarshaller: Marshaller<UpdateEventRequest>;
+    private readonly _privateEventResponseMarshaller: Marshaller<PrivateEventResponse>;
+    private readonly _defaultHeaders: HeadersInit;
+    private readonly _protocol: string;
 
-//     private static readonly _getOrCreateUserOnSessionOptions: RequestInit = {
-//         method: 'POST',
-//         cache: 'no-cache',
-//         redirect: 'error',
-//         referrer: 'client',
-//     };
+    constructor(
+        env: Env,
+        origin: string,
+        contentServiceHost: string,
+        webFetcher: WebFetcher,
+        sessionTokenMarshaller: Marshaller<SessionToken>,
+        createEventRequestMarshaller: Marshaller<CreateEventRequest>,
+        updateEventRequestMarshaller: Marshaller<UpdateEventRequest>,
+        privateEventResponseMarshaller: Marshaller<PrivateEventResponse>,
+        sessionToken: SessionToken | null = null) {
+        this._env = env;
+        this._origin = origin;
+        this._contentServiceHost = contentServiceHost;
+        this._webFetcher = webFetcher;
+        this._sessionTokenMarshaller = sessionTokenMarshaller;
+        this._createEventRequestMarshaller = createEventRequestMarshaller;
+        this._updateEventRequestMarshaller = updateEventRequestMarshaller;
+        this._privateEventResponseMarshaller = privateEventResponseMarshaller;
 
-//     private static readonly _getUserOnSessionOptions: RequestInit = {
-//         method: 'GET',
-//         cache: 'no-cache',
-//         redirect: 'error',
-//         referrer: 'client',
-//     };
+        this._defaultHeaders = {
+            'Origin': origin
+        }
 
-//     private static readonly _getUsersInfoOptions: RequestInit = {
-//         method: 'GET',
-//         cache: 'no-cache',
-//         redirect: 'error',
-//         referrer: 'client',
-//     };
+        if (sessionToken != null) {
+            this._defaultHeaders[SESSION_TOKEN_HEADER_NAME] = JSON.stringify(this._sessionTokenMarshaller.pack(sessionToken));
+        }
 
-//     private readonly _env: Env;
-//     private readonly _origin: string;
-//     private readonly _identityServiceHost: string;
-//     private readonly _webFetcher: WebFetcher;
-//     private readonly _sessionTokenMarshaller: Marshaller<SessionToken>;
-//     private readonly _sessionAndTokenResponseMarshaller: Marshaller<SessionAndTokenResponse>;
-//     private readonly _sessionResponseMarshaller: Marshaller<SessionResponse>;
-//     private readonly _usersInfoResponseMarshaller: Marshaller<UsersInfoResponse>;
-//     private readonly _defaultHeaders: HeadersInit;
-//     private readonly _protocol: string;
+        if (isLocal(this._env)) {
+            this._protocol = 'http';
+        } else {
+            this._protocol = 'https';
+        }
+    }
 
-//     constructor(
-//         env: Env,
-//         origin: string,
-//         identityServiceHost: string,
-//         webFetcher: WebFetcher,
-//         sessionTokenMarshaller: Marshaller<SessionToken>,
-//         sessionAndTokenResponseMarshaler: Marshaller<SessionAndTokenResponse>,
-//         sessionResponseMarshaller: Marshaller<SessionResponse>,
-//         usersInfoResponseMarshaller: Marshaller<UsersInfoResponse>,
-//         sessionToken: SessionToken | null = null) {
-//         this._env = env;
-//         this._origin = origin;
-//         this._identityServiceHost = identityServiceHost;
-//         this._webFetcher = webFetcher;
-//         this._sessionTokenMarshaller = sessionTokenMarshaller;
-//         this._sessionAndTokenResponseMarshaller = sessionAndTokenResponseMarshaler
-//         this._sessionResponseMarshaller = sessionResponseMarshaller;
-//         this._usersInfoResponseMarshaller = usersInfoResponseMarshaller;
+    withContext(sessionToken: SessionToken): ContentPrivateClient {
+        return new ContentPrivateClientImpl(
+            this._env,
+            this._origin,
+            this._contentServiceHost,
+            this._webFetcher,
+            this._sessionTokenMarshaller,
+            this._createEventRequestMarshaller,
+            this._updateEventRequestMarshaller,
+            this._privateEventResponseMarshaller,
+            sessionToken);
+    }
 
-//         this._defaultHeaders = {
-//             'Origin': origin
-//         }
+    async createEvent(session: Session): Promise<Event> {
+        const createEventRequest = new CreateEventRequest();
 
-//         if (sessionToken != null) {
-//             this._defaultHeaders[SESSION_TOKEN_HEADER_NAME] = JSON.stringify(this._sessionTokenMarshaller.pack(sessionToken));
-//         }
+        const options = this._buildOptions(ContentPrivateClientImpl._createEventOptions, session);
+        options.headers['Content-Type'] = 'application/json';
+        options.body = JSON.stringify(this._createEventRequestMarshaller.pack(createEventRequest));
 
-//         if (isLocal(this._env)) {
-//             this._protocol = 'http';
-//         } else {
-//             this._protocol = 'https';
-//         }
-//     }
+        let rawResponse: Response;
+        try {
+            rawResponse = await this._webFetcher.fetch(`${this._protocol}://${this._contentServiceHost}/api/private/events`, options);
+        } catch (e) {
+            throw new ContentError(`Request failed because '${e.toString()}'`);
+        }
 
-//     withContext(sessionToken: SessionToken): IdentityClient {
-//         return new IdentityClientImpl(
-//             this._env,
-//             this._origin,
-//             this._identityServiceHost,
-//             this._webFetcher,
-//             this._sessionTokenMarshaller,
-//             this._sessionAndTokenResponseMarshaller,
-//             this._sessionResponseMarshaller,
-//             this._usersInfoResponseMarshaller,
-//             sessionToken);
-//     }
+        if (rawResponse.ok) {
+            try {
+                const jsonResponse = await rawResponse.json();
+                const privateEventResponse = this._privateEventResponseMarshaller.extract(jsonResponse);
+                return privateEventResponse.event as Event;
+            } catch (e) {
+                throw new ContentError(`JSON decoding error because '${e.toString()}'`);
+            }
+        } else {
+            throw new ContentError(`Service response ${rawResponse.status}`);
+        }
+    }
 
-//     async getOrCreateSession(): Promise<[SessionToken, Session]> {
-//         const options = this._buildOptions(IdentityClientImpl._getOrCreateSessionOptions);
+    async updateEvent(session: Session, updateOptions: UpdateEventOptions): Promise<Event> {
+        const updateEventRequest = new UpdateEventRequest();
 
-//         let rawResponse: Response;
-//         try {
-//             rawResponse = await this._webFetcher.fetch(`${this._protocol}://${this._identityServiceHost}/session`, options);
-//         } catch (e) {
-//             throw new IdentityError(`Request failed because '${e.toString()}'`);
-//         }
+        // Hackety-hack-hack
+        for (let key in updateOptions) {
+            (updateEventRequest as any)[key] = (updateOptions as any)[key];
+        }
 
-//         if (rawResponse.ok) {
-//             try {
-//                 const jsonResponse = await rawResponse.json();
-//                 const sessionResponse = this._sessionAndTokenResponseMarshaller.extract(jsonResponse);
-//                 return [sessionResponse.sessionToken, sessionResponse.session];
-//             } catch (e) {
-//                 throw new IdentityError(`JSON decoding error because '${e.toString()}'`);
-//             }
-//         } else {
-//             throw new IdentityError(`Service response ${rawResponse.status}`);
-//         }
-//     }
+        const options = this._buildOptions(ContentPrivateClientImpl._updateEventOptions, session);
+        options.headers['Content-Type'] = 'application/json';
+        options.body = JSON.stringify(this._updateEventRequestMarshaller.pack(updateEventRequest));
 
-//     async getSession(): Promise<Session> {
-//         const options = this._buildOptions(IdentityClientImpl._getSessionOptions);
+        let rawResponse: Response;
+        try {
+            rawResponse = await this._webFetcher.fetch(`${this._protocol}://${this._contentServiceHost}/api/private/events`, options);
+        } catch (e) {
+            throw new ContentError(`Request failed because '${e.toString()}'`);
+        }
 
-//         let rawResponse: Response;
-//         try {
-//             rawResponse = await this._webFetcher.fetch(`${this._protocol}://${this._identityServiceHost}/session`, options);
-//         } catch (e) {
-//             throw new IdentityError(`Request failed because '${e.toString()}'`);
-//         }
+        if (rawResponse.ok) {
+            try {
+                const jsonResponse = await rawResponse.json();
+                const privateEventResponse = this._privateEventResponseMarshaller.extract(jsonResponse);
 
-//         if (rawResponse.ok) {
-//             try {
-//                 const jsonResponse = await rawResponse.json();
-//                 const sessionResponse = this._sessionResponseMarshaller.extract(jsonResponse);
-//                 return sessionResponse.session;
-//             } catch (e) {
-//                 throw new IdentityError(`JSON decoding error because '${e.toString()}'`);
-//             }
-//         } else if (rawResponse.status == HttpStatus.UNAUTHORIZED) {
-//             throw new UnauthorizedIdentityError('User is not authorized');
-//         } else {
-//             throw new IdentityError(`Service response ${rawResponse.status}`);
-//         }
-//     }
+                if (privateEventResponse.eventIsRemoved) {
+                    throw new DeletedEventForUserError('Event already deleted');
+                }
 
-//     async removeSession(session: Session): Promise<void> {
-//         const options = this._buildOptions(IdentityClientImpl._expireSessionOptions, session);
+                return privateEventResponse.event as Event;
+            } catch (e) {
+                throw new ContentError(`JSON decoding error because '${e.toString()}'`);
+            }
+        } else if (rawResponse.status == HttpStatus.UNAUTHORIZED) {
+            throw new UnauthorizedContentError('User is not authorized');
+        } else if (rawResponse.status == HttpStatus.NOT_FOUND) {
+            throw new NoEventForUserError('User does not have a cause');
+        } else {
+            throw new ContentError(`Service response ${rawResponse.status}`);
+        }
+    }
 
-//         let rawResponse: Response;
-//         try {
-//             rawResponse = await this._webFetcher.fetch(`${this._protocol}://${this._identityServiceHost}/session`, options);
-//         } catch (e) {
-//             throw new IdentityError(`Request failed because '${e.toString()}'`);
-//         }
+    async getEvent(): Promise<Event> {
+        const options = this._buildOptions(ContentPrivateClientImpl._getEventOptions);
 
-//         if (rawResponse.ok) {
-//             // Do nothing
-//         } else if (rawResponse.status == HttpStatus.UNAUTHORIZED) {
-//             throw new UnauthorizedIdentityError('User is not authorized');
-//         } else {
-//             throw new IdentityError(`Service response ${rawResponse.status}`);
-//         }
-//     }
+        let rawResponse: Response;
+        try {
+            rawResponse = await this._webFetcher.fetch(`${this._protocol}://${this._contentServiceHost}/api/private/events`, options);
+        } catch (e) {
+            throw new ContentError(`Request failed because '${e.toString()}'`);
+        }
 
-//     async agreeToCookiePolicyForSession(session: Session): Promise<Session> {
-//         const options = this._buildOptions(IdentityClientImpl._agreeToCookiePolicyForSessionOptions, session);
+        if (rawResponse.ok) {
+            try {
+                const jsonResponse = await rawResponse.json();
+                const privateEventReasponse = this._privateEventResponseMarshaller.extract(jsonResponse);
 
-//         let rawResponse: Response;
-//         try {
-//             rawResponse = await this._webFetcher.fetch(`${this._protocol}://${this._identityServiceHost}/session/agree-to-cookie-policy`, options);
-//         } catch (e) {
-//             throw new IdentityError(`Request failed because '${e.toString()}'`);
-//         }
+                if (privateEventReasponse.eventIsRemoved) {
+                    throw new DeletedEventForUserError('Event already deleted');
+                }
 
-//         if (rawResponse.ok) {
-//             try {
-//                 const jsonResponse = await rawResponse.json();
-//                 const sessionResponse = this._sessionResponseMarshaller.extract(jsonResponse);
-//                 return sessionResponse.session;
-//             } catch (e) {
-//                 throw new IdentityError(`JSON decoding error because '${e.toString()}'`);
-//             }
-//         } else if (rawResponse.status == HttpStatus.UNAUTHORIZED) {
-//             throw new UnauthorizedIdentityError('User is not authorized');
-//         } else {
-//             throw new IdentityError(`Service response ${rawResponse.status}`);
-//         }
-//     }
+                return privateEventReasponse.event as Event;
+            } catch (e) {
+                throw new ContentError(`JSON decoding error because '${e.toString()}'`);
+            }
+        } else if (rawResponse.status == HttpStatus.UNAUTHORIZED) {
+            throw new UnauthorizedContentError('User is not authorized');
+        } else {
+            throw new ContentError(`Service response ${rawResponse.status}`);
+        }
+    }
 
-//     async getOrCreateUserOnSession(session: Session): Promise<[SessionToken, Session]> {
-//         const options = this._buildOptions(IdentityClientImpl._getOrCreateUserOnSessionOptions, session);
+    private _buildOptions(template: RequestInit, session: Session | null = null) {
+        const options = (Object as any).assign({ headers: this._defaultHeaders }, template);
 
-//         let rawResponse: Response;
-//         try {
-//             rawResponse = await this._webFetcher.fetch(`${this._protocol}://${this._identityServiceHost}/user`, options);
-//         } catch (e) {
-//             throw new IdentityError(`Request failed because '${e.toString()}'`);
-//         }
+        if (session != null) {
+            options.headers = (Object as any).assign(options.headers, { [XSRF_TOKEN_HEADER_NAME]: session.xsrfToken });
+        }
 
-//         if (rawResponse.ok) {
-//             try {
-//                 const jsonResponse = await rawResponse.json();
-//                 const sessionResponse = this._sessionAndTokenResponseMarshaller.extract(jsonResponse);
-//                 return [sessionResponse.sessionToken, sessionResponse.session];
-//             } catch (e) {
-//                 throw new IdentityError(`JSON decoding error because '${e.toString()}'`);
-//             }
-//         } else if (rawResponse.status == HttpStatus.UNAUTHORIZED) {
-//             throw new UnauthorizedIdentityError('User is not authorized');
-//         } else {
-//             throw new IdentityError(`Service response ${rawResponse.status}`);
-//         }
-//     }
-
-//     async getUserOnSession(): Promise<Session> {
-//         const options = this._buildOptions(IdentityClientImpl._getUserOnSessionOptions);
-
-//         let rawResponse: Response;
-//         try {
-//             rawResponse = await this._webFetcher.fetch(`${this._protocol}://${this._identityServiceHost}/user`, options);
-//         } catch (e) {
-//             throw new IdentityError(`Request failed because '${e.toString()}'`);
-//         }
-
-//         if (rawResponse.ok) {
-//             try {
-//                 const jsonResponse = await rawResponse.json();
-//                 const sessionResponse = this._sessionResponseMarshaller.extract(jsonResponse);
-//                 return sessionResponse.session;
-//             } catch (e) {
-//                 throw new IdentityError(`JSON decoding error because '${e.toString()}'`);
-//             }
-//         } else if (rawResponse.status == HttpStatus.UNAUTHORIZED) {
-//             throw new UnauthorizedIdentityError('User is not authorized');
-//         } else {
-//             throw new IdentityError(`Service response ${rawResponse.status}`);
-//         }
-//     }
-
-//     async getUsersInfo(ids: number[]): Promise<PublicUser[]> {
-//         const dedupedIds: number[] = [];
-//         for (let id of ids) {
-//             if (dedupedIds.indexOf(id) != -1)
-//                 continue;
-//             dedupedIds.push(id);
-//         }
-
-//         const options = this._buildOptions(IdentityClientImpl._getUsersInfoOptions);
-
-//         let rawResponse: Response;
-//         try {
-//             const encodedIds = encodeURIComponent(JSON.stringify(dedupedIds));
-//             rawResponse = await this._webFetcher.fetch(`${this._protocol}://${this._identityServiceHost}/users-info?ids=${encodedIds}`, options);
-//         } catch (e) {
-//             throw new IdentityError(`Request failed because '${e.toString()}'`);
-//         }
-
-//         if (rawResponse.ok) {
-//             try {
-//                 const jsonResponse = await rawResponse.json();
-//                 const usersInfoResponse = this._usersInfoResponseMarshaller.extract(jsonResponse);
-//                 return usersInfoResponse.usersInfo;
-//             } catch (e) {
-//                 throw new IdentityError(`JSON decoding error because '${e.toString()}'`);
-//             }
-//         } else {
-//             throw new IdentityError(`Service response ${rawResponse.status}`);
-//         }
-//     }
-
-//     private _buildOptions(template: RequestInit, session: Session | null = null) {
-//         const options = (Object as any).assign({ headers: this._defaultHeaders }, template);
-
-//         if (session != null) {
-//             options.headers = (Object as any).assign(options.headers, { [XSRF_TOKEN_HEADER_NAME]: session.xsrfToken });
-//         }
-
-//         return options;
-//     }
-// }
+        return options;
+    }
+}

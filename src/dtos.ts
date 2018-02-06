@@ -16,8 +16,6 @@ import { Event, SubEventDetails } from './entities'
 
 /** The data associated with a creation request. */
 export class CreateEventRequest {
-    @MarshalWith(MarshalFrom(SubEventDetails))
-    subEventDetails: SubEventDetails[];
 }
 
 /** The data associated with an update request. */
