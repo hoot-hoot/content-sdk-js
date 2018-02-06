@@ -2,7 +2,18 @@
 
 /** Imports. Also so typedoc works correctly. */
 import * as r from 'raynor'
-import { MarshalEnum, MarshalWith } from 'raynor'
+import {
+    MarshalEnum,
+    MarshalFrom,
+    MarshalWith,
+    OneOf2,
+    OptionalOf
+} from 'raynor'
+
+import {
+    CreateEventRequest,
+    UpdateEventRequest
+} from './dtos'
 
 
 /** The types of events which happen on a {@link Event}. */
@@ -41,6 +52,8 @@ export class EventEvent {
     timestamp: Date;
 
     /** The data for the event. */
-    @MarshalWith(r.NullMarshaller)
-    data: null;
+    @MarshalWith(OptionalOf(OneOf2(
+        MarshalFrom(CreateEventRequest),
+        MarshalFrom(UpdateEventRequest))))
+    data: CreateEventRequest | UpdateEventRequest | null;
 }

@@ -34,6 +34,7 @@
     },
     "dependencies": {
         "@truesparrow/common-js": "latest",
+        "@truesparrow/common-server-js": "latest",
         "@truesparrow/identity-sdk-js": "latest",
         "raynor": "0.12.0"
     },
