@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ArticleContent | content-sdk-js</title>
+	<title>EventEventType | content-sdk-js</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,51 +56,135 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_entities_.html">&quot;entities&quot;</a>
+					<a href="../modules/_events_.html">&quot;events&quot;</a>
 				</li>
 				<li>
-					<a href="_entities_.articlecontent.html">ArticleContent</a>
+					<a href="_events_.eventeventtype.html">EventEventType</a>
 				</li>
 			</ul>
-			<h1>Class ArticleContent</h1>
+			<h1>Enumeration EventEventType</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
-			<section class="tsd-panel tsd-hierarchy">
-				<h3>Hierarchy</h3>
-				<ul class="tsd-hierarchy">
-					<li>
-						<span class="target">ArticleContent</span>
-					</li>
-				</ul>
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>The types of events which happen on a <a href="../classes/_entities_.event.html">Event</a>.</p>
+					</div>
+				</div>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
 				<h2>Index</h2>
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Properties</h3>
+							<h3>Enumeration members</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.articlecontent.html#cells" class="tsd-kind-icon">cells</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="_events_.eventeventtype.html#activated" class="tsd-kind-icon">Activated</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="_events_.eventeventtype.html#created" class="tsd-kind-icon">Created</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="_events_.eventeventtype.html#deactivated" class="tsd-kind-icon">Deactivated</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="_events_.eventeventtype.html#removed" class="tsd-kind-icon">Removed</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="_events_.eventeventtype.html#unknown" class="tsd-kind-icon">Unknown</a></li>
+								<li class="tsd-kind-enum-member tsd-parent-kind-enum"><a href="_events_.eventeventtype.html#updated" class="tsd-kind-icon">Updated</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="cells" class="tsd-anchor"></a>
-					<h3>cells</h3>
-					<div class="tsd-signature tsd-kind-icon">cells<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><a href="_entities_.headingcell.html" class="tsd-signature-type">HeadingCell</a><span class="tsd-signature-symbol"> | </span><a href="_entities_.textcell.html" class="tsd-signature-type">TextCell</a><span class="tsd-signature-symbol"> | </span><a href="_entities_.codecell.html" class="tsd-signature-type">CodeCell</a><span class="tsd-signature-symbol"> | </span><a href="_entities_.imagecell.html" class="tsd-signature-type">ImageCell</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">[]</span></div>
+				<h2>Enumeration members</h2>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+					<a name="activated" class="tsd-anchor"></a>
+					<h3>Activated</h3>
+					<div class="tsd-signature tsd-kind-icon">Activated<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;3</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/8ce1fbe/src/entities.ts#L84">entities.ts:84</a></li>
+							<li>Defined in events.ts:20</li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Enough information is present after an update to make the site active.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+					<a name="created" class="tsd-anchor"></a>
+					<h3>Created</h3>
+					<div class="tsd-signature tsd-kind-icon">Created<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;1</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in events.ts:14</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The creation event.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+					<a name="deactivated" class="tsd-anchor"></a>
+					<h3>Deactivated</h3>
+					<div class="tsd-signature tsd-kind-icon">Deactivated<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;4</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in events.ts:23</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Not enough information is present after an update for the site to be active.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+					<a name="removed" class="tsd-anchor"></a>
+					<h3>Removed</h3>
+					<div class="tsd-signature tsd-kind-icon">Removed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;5</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in events.ts:26</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The event was removed.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+					<a name="unknown" class="tsd-anchor"></a>
+					<h3>Unknown</h3>
+					<div class="tsd-signature tsd-kind-icon">Unknown<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;0</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in events.ts:11</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The default value. Not meant to be used.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-enum-member tsd-parent-kind-enum">
+					<a name="updated" class="tsd-anchor"></a>
+					<h3>Updated</h3>
+					<div class="tsd-signature tsd-kind-icon">Updated<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol"> =&nbsp;2</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in events.ts:17</li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A generic update. Things like changing an address.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -113,8 +197,11 @@
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_client_.html">"client"</a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_entities_.html">"entities"</a>
+					</li>
+					<li class="current tsd-kind-external-module">
+						<a href="../modules/_events_.html">"events"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_index_.html">"index"</a>
@@ -123,71 +210,35 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
-						<a href="../enums/_entities_.blogstate.html" class="tsd-kind-icon">Blog<wbr>State</a>
-					</li>
-					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
-						<a href="../enums/_entities_.commentstate.html" class="tsd-kind-icon">Comment<wbr>State</a>
-					</li>
-					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
-						<a href="../enums/_entities_.poststate.html" class="tsd-kind-icon">Post<wbr>State</a>
-					</li>
-					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
-						<a href="../enums/_entities_.posttype.html" class="tsd-kind-icon">Post<wbr>Type</a>
-					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.articlecontent.html" class="tsd-kind-icon">Article<wbr>Content</a>
+					<li class="current tsd-kind-enum tsd-parent-kind-external-module">
+						<a href="_events_.eventeventtype.html" class="tsd-kind-icon">Event<wbr>Event<wbr>Type</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_entities_.articlecontent.html#cells" class="tsd-kind-icon">cells</a>
+							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+								<a href="_events_.eventeventtype.html#activated" class="tsd-kind-icon">Activated</a>
+							</li>
+							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+								<a href="_events_.eventeventtype.html#created" class="tsd-kind-icon">Created</a>
+							</li>
+							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+								<a href="_events_.eventeventtype.html#deactivated" class="tsd-kind-icon">Deactivated</a>
+							</li>
+							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+								<a href="_events_.eventeventtype.html#removed" class="tsd-kind-icon">Removed</a>
+							</li>
+							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+								<a href="_events_.eventeventtype.html#unknown" class="tsd-kind-icon">Unknown</a>
+							</li>
+							<li class=" tsd-kind-enum-member tsd-parent-kind-enum">
+								<a href="_events_.eventeventtype.html#updated" class="tsd-kind-icon">Updated</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.blog.html" class="tsd-kind-icon">Blog</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.blogsettings.html" class="tsd-kind-icon">Blog<wbr>Settings</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.cell.html" class="tsd-kind-icon">Cell</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.codecell.html" class="tsd-kind-icon">Code<wbr>Cell</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.comment.html" class="tsd-kind-icon">Comment</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.commentcontent.html" class="tsd-kind-icon">Comment<wbr>Content</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.headingcell.html" class="tsd-kind-icon">Heading<wbr>Cell</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.imagecell.html" class="tsd-kind-icon">Image<wbr>Cell</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.imagesetcontent.html" class="tsd-kind-icon">Image<wbr>Set<wbr>Content</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.linkcell.html" class="tsd-kind-icon">Link<wbr>Cell</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.linksetcontent.html" class="tsd-kind-icon">Link<wbr>Set<wbr>Content</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.post.html" class="tsd-kind-icon">Post</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.textcell.html" class="tsd-kind-icon">Text<wbr>Cell</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="../modules/_entities_.html#postcontent" class="tsd-kind-icon">Post<wbr>Content</a>
+						<a href="../classes/_events_.eventevent.html" class="tsd-kind-icon">Event<wbr>Event</a>
 					</li>
 				</ul>
 			</nav>

@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Comment | content-sdk-js</title>
+	<title>Event | content-sdk-js</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -59,21 +59,28 @@
 					<a href="../modules/_entities_.html">&quot;entities&quot;</a>
 				</li>
 				<li>
-					<a href="_entities_.comment.html">Comment</a>
+					<a href="_entities_.event.html">Event</a>
 				</li>
 			</ul>
-			<h1>Class Comment</h1>
+			<h1>Class Event</h1>
 		</div>
 	</div>
 </header>
 <div class="container container-main">
 	<div class="row">
 		<div class="col-8 col-content">
+			<section class="tsd-panel tsd-comment">
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Details about an event.</p>
+					</div>
+				</div>
+			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">Comment</span>
+						<span class="target">Event</span>
 					</li>
 				</ul>
 			</section>
@@ -84,16 +91,11 @@
 						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.comment.html#blogid" class="tsd-kind-icon">blog<wbr>Id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.comment.html#commenterid" class="tsd-kind-icon">commenter<wbr>Id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.comment.html#content" class="tsd-kind-icon">content</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.comment.html#id" class="tsd-kind-icon">id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.comment.html#ownerid" class="tsd-kind-icon">owner<wbr>Id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.comment.html#parrentcommentid" class="tsd-kind-icon">parrent<wbr>Comment<wbr>Id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.comment.html#postid" class="tsd-kind-icon">post<wbr>Id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.comment.html#state" class="tsd-kind-icon">state</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.comment.html#timecreated" class="tsd-kind-icon">time<wbr>Created</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.comment.html#timelastupdated" class="tsd-kind-icon">time<wbr>Last<wbr>Updated</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.event.html#id" class="tsd-kind-icon">id</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.event.html#state" class="tsd-kind-icon">state</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.event.html#subeventdetails" class="tsd-kind-icon">sub<wbr>Event<wbr>Details</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.event.html#timecreated" class="tsd-kind-icon">time<wbr>Created</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.event.html#timelastupdated" class="tsd-kind-icon">time<wbr>Last<wbr>Updated</a></li>
 							</ul>
 						</section>
 					</div>
@@ -102,84 +104,49 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="blogid" class="tsd-anchor"></a>
-					<h3>blog<wbr>Id</h3>
-					<div class="tsd-signature tsd-kind-icon">blog<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/8ce1fbe/src/entities.ts#L135">entities.ts:135</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="commenterid" class="tsd-anchor"></a>
-					<h3>commenter<wbr>Id</h3>
-					<div class="tsd-signature tsd-kind-icon">commenter<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/8ce1fbe/src/entities.ts#L137">entities.ts:137</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="content" class="tsd-anchor"></a>
-					<h3>content</h3>
-					<div class="tsd-signature tsd-kind-icon">content<span class="tsd-signature-symbol">:</span> <a href="_entities_.commentcontent.html" class="tsd-signature-type">CommentContent</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/8ce1fbe/src/entities.ts#L140">entities.ts:140</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="id" class="tsd-anchor"></a>
 					<h3>id</h3>
 					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/8ce1fbe/src/entities.ts#L133">entities.ts:133</a></li>
+							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/907fa15/src/entities.ts#L61">entities.ts:61</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="ownerid" class="tsd-anchor"></a>
-					<h3>owner<wbr>Id</h3>
-					<div class="tsd-signature tsd-kind-icon">owner<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/8ce1fbe/src/entities.ts#L136">entities.ts:136</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="parrentcommentid" class="tsd-anchor"></a>
-					<h3>parrent<wbr>Comment<wbr>Id</h3>
-					<div class="tsd-signature tsd-kind-icon">parrent<wbr>Comment<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/8ce1fbe/src/entities.ts#L138">entities.ts:138</a></li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="postid" class="tsd-anchor"></a>
-					<h3>post<wbr>Id</h3>
-					<div class="tsd-signature tsd-kind-icon">post<wbr>Id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/8ce1fbe/src/entities.ts#L134">entities.ts:134</a></li>
-						</ul>
-					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The globally unique id of the event.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="state" class="tsd-anchor"></a>
 					<h3>state</h3>
-					<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <a href="../enums/_entities_.commentstate.html" class="tsd-signature-type">CommentState</a></div>
+					<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <a href="../enums/_entities_.eventstate.html" class="tsd-signature-type">EventState</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/8ce1fbe/src/entities.ts#L139">entities.ts:139</a></li>
+							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/907fa15/src/entities.ts#L65">entities.ts:65</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The state of the event.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="subeventdetails" class="tsd-anchor"></a>
+					<h3>sub<wbr>Event<wbr>Details</h3>
+					<div class="tsd-signature tsd-kind-icon">sub<wbr>Event<wbr>Details<span class="tsd-signature-symbol">:</span> <a href="_entities_.subeventdetails.html" class="tsd-signature-type">SubEventDetails</a><span class="tsd-signature-symbol">[]</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/907fa15/src/entities.ts#L69">entities.ts:69</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The various sub-events making up the event.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="timecreated" class="tsd-anchor"></a>
@@ -187,9 +154,14 @@
 					<div class="tsd-signature tsd-kind-icon">time<wbr>Created<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/8ce1fbe/src/entities.ts#L141">entities.ts:141</a></li>
+							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/907fa15/src/entities.ts#L73">entities.ts:73</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The time the event was created.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="timelastupdated" class="tsd-anchor"></a>
@@ -197,9 +169,14 @@
 					<div class="tsd-signature tsd-kind-icon">time<wbr>Last<wbr>Updated<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/8ce1fbe/src/entities.ts#L142">entities.ts:142</a></li>
+							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/907fa15/src/entities.ts#L77">entities.ts:77</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The time the event was last updated.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -216,6 +193,9 @@
 						<a href="../modules/_entities_.html">"entities"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
+						<a href="../modules/_events_.html">"events"</a>
+					</li>
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_index_.html">"index"</a>
 					</li>
 				</ul>
@@ -223,97 +203,37 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
-						<a href="../enums/_entities_.blogstate.html" class="tsd-kind-icon">Blog<wbr>State</a>
-					</li>
-					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
-						<a href="../enums/_entities_.commentstate.html" class="tsd-kind-icon">Comment<wbr>State</a>
-					</li>
-					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
-						<a href="../enums/_entities_.poststate.html" class="tsd-kind-icon">Post<wbr>State</a>
-					</li>
-					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
-						<a href="../enums/_entities_.posttype.html" class="tsd-kind-icon">Post<wbr>Type</a>
+						<a href="../enums/_entities_.eventstate.html" class="tsd-kind-icon">Event<wbr>State</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.articlecontent.html" class="tsd-kind-icon">Article<wbr>Content</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.blog.html" class="tsd-kind-icon">Blog</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.blogsettings.html" class="tsd-kind-icon">Blog<wbr>Settings</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.cell.html" class="tsd-kind-icon">Cell</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.codecell.html" class="tsd-kind-icon">Code<wbr>Cell</a>
+						<a href="_entities_.addressmarshaller.html" class="tsd-kind-icon">Address<wbr>Marshaller</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.comment.html" class="tsd-kind-icon">Comment</a>
+						<a href="_entities_.event.html" class="tsd-kind-icon">Event</a>
 						<ul>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_entities_.comment.html#blogid" class="tsd-kind-icon">blog<wbr>Id</a>
+								<a href="_entities_.event.html#id" class="tsd-kind-icon">id</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_entities_.comment.html#commenterid" class="tsd-kind-icon">commenter<wbr>Id</a>
+								<a href="_entities_.event.html#state" class="tsd-kind-icon">state</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_entities_.comment.html#content" class="tsd-kind-icon">content</a>
+								<a href="_entities_.event.html#subeventdetails" class="tsd-kind-icon">sub<wbr>Event<wbr>Details</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_entities_.comment.html#id" class="tsd-kind-icon">id</a>
+								<a href="_entities_.event.html#timecreated" class="tsd-kind-icon">time<wbr>Created</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_entities_.comment.html#ownerid" class="tsd-kind-icon">owner<wbr>Id</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_entities_.comment.html#parrentcommentid" class="tsd-kind-icon">parrent<wbr>Comment<wbr>Id</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_entities_.comment.html#postid" class="tsd-kind-icon">post<wbr>Id</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_entities_.comment.html#state" class="tsd-kind-icon">state</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_entities_.comment.html#timecreated" class="tsd-kind-icon">time<wbr>Created</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_entities_.comment.html#timelastupdated" class="tsd-kind-icon">time<wbr>Last<wbr>Updated</a>
+								<a href="_entities_.event.html#timelastupdated" class="tsd-kind-icon">time<wbr>Last<wbr>Updated</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.commentcontent.html" class="tsd-kind-icon">Comment<wbr>Content</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.headingcell.html" class="tsd-kind-icon">Heading<wbr>Cell</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.imagecell.html" class="tsd-kind-icon">Image<wbr>Cell</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.imagesetcontent.html" class="tsd-kind-icon">Image<wbr>Set<wbr>Content</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.linkcell.html" class="tsd-kind-icon">Link<wbr>Cell</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.linksetcontent.html" class="tsd-kind-icon">Link<wbr>Set<wbr>Content</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.post.html" class="tsd-kind-icon">Post</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_entities_.textcell.html" class="tsd-kind-icon">Text<wbr>Cell</a>
-					</li>
-					<li class=" tsd-kind-type-alias tsd-parent-kind-external-module">
-						<a href="../modules/_entities_.html#postcontent" class="tsd-kind-icon">Post<wbr>Content</a>
+						<a href="_entities_.subeventdetails.html" class="tsd-kind-icon">Sub<wbr>Event<wbr>Details</a>
 					</li>
 				</ul>
 			</nav>
