@@ -75,4 +75,17 @@ export class Event {
     /** The time the event was last updated. */
     @MarshalWith(r.DateFromTsMarshaller)
     timeLastUpdated: Date;
+
+    /**
+     * Checks whether the event looks active or not.
+     * @note For now, this looks to see if there's any subevent which is allowed.
+     * @return Whether the event looks active or not.
+     */
+    get doesLookActive(): boolean {
+        if (this.subEventDetails.every(sed => !sed.haveEvent)) {
+            return false;
+        }
+
+        return true;
+    }
 }
