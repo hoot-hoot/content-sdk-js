@@ -1,5 +1,6 @@
 export {
     Event,
+    EventState,
     SubEventDetails
 } from './entities'
 
