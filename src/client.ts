@@ -5,8 +5,7 @@ import 'isomorphic-fetch'
 import * as HttpStatus from 'http-status-codes'
 import { Marshaller, MarshalFrom } from 'raynor'
 
-import { Env, isLocal } from '@truesparrow/common-js'
-import { WebFetcher } from '@truesparrow/common-server-js'
+import { Env, isLocal, WebFetcher } from '@truesparrow/common-js'
 import { Session } from '@truesparrow/identity-sdk-js'
 import {
     SESSION_TOKEN_HEADER_NAME,
