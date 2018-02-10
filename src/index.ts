@@ -7,8 +7,9 @@ export {
 export {
     ContentError,
     ContentPrivateClient,
-    DeletedEventForUserError,
+    EventAlreadyExistsForUser,
+    EventNotFoundError,
+    EventRemovedError,
     newContentPrivateClient,
-    NoEventForUserError,
     UnauthorizedContentError
 } from './client'

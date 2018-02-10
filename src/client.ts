@@ -39,18 +39,26 @@ export class UnauthorizedContentError extends ContentError {
 }
 
 /** An error raised when an action on a user with a deleted event. */
-export class DeletedEventForUserError extends ContentError {
+export class EventRemovedError extends ContentError {
     constructor(message: string) {
         super(message);
-        this.name = 'NoEventForUserError';
+        this.name = 'EventRemovedError';
     }
 }
 
 /** An error raised when an action is by an user without an event. */
-export class NoEventForUserError extends ContentError {
+export class EventNotFoundError extends ContentError {
     constructor(message: string) {
         super(message);
-        this.name = 'NoEventForUserError';
+        this.name = 'EventNotFound';
+    }
+}
+
+/** An error raised when an action is by an user without an event. */
+export class EventAlreadyExistsForUser extends ContentError {
+    constructor(message: string) {
+        super(message);
+        this.name = 'EventAlreadyExistsForUser';
     }
 }
 
@@ -237,6 +245,8 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
             } catch (e) {
                 throw new ContentError(`JSON decoding error because '${e.toString()}'`);
             }
+        } else if (rawResponse.status == HttpStatus.CONFLICT) {
+            throw new EventAlreadyExistsForUser('User does not have a cause');
         } else {
             throw new ContentError(`Service response ${rawResponse.status}`);
         }
@@ -267,7 +277,7 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
                 const privateEventResponse = this._privateEventResponseMarshaller.extract(jsonResponse);
 
                 if (privateEventResponse.eventIsRemoved) {
-                    throw new DeletedEventForUserError('Event already deleted');
+                    throw new EventRemovedError('Event already deleted');
                 }
 
                 return privateEventResponse.event as Event;
@@ -277,7 +287,7 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
         } else if (rawResponse.status == HttpStatus.UNAUTHORIZED) {
             throw new UnauthorizedContentError('User is not authorized');
         } else if (rawResponse.status == HttpStatus.NOT_FOUND) {
-            throw new NoEventForUserError('User does not have a cause');
+            throw new EventNotFoundError('User does not have a cause');
         } else {
             throw new ContentError(`Service response ${rawResponse.status}`);
         }
@@ -299,7 +309,7 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
                 const privateEventReasponse = this._privateEventResponseMarshaller.extract(jsonResponse);
 
                 if (privateEventReasponse.eventIsRemoved) {
-                    throw new DeletedEventForUserError('Event already deleted');
+                    throw new EventRemovedError('Event already deleted');
                 }
 
                 return privateEventReasponse.event as Event;
@@ -308,6 +318,8 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
             }
         } else if (rawResponse.status == HttpStatus.UNAUTHORIZED) {
             throw new UnauthorizedContentError('User is not authorized');
+        } else if (rawResponse.status == HttpStatus.NOT_FOUND) {
+            throw new EventNotFoundError('User does not have a cause');
         } else {
             throw new ContentError(`Service response ${rawResponse.status}`);
         }
