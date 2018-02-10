@@ -50,15 +50,15 @@ export class EventRemovedError extends ContentError {
 export class EventNotFoundError extends ContentError {
     constructor(message: string) {
         super(message);
-        this.name = 'EventNotFound';
+        this.name = 'EventNotFoundError';
     }
 }
 
 /** An error raised when an action is by an user without an event. */
-export class EventAlreadyExistsForUser extends ContentError {
+export class EventAlreadyExistsForUserError extends ContentError {
     constructor(message: string) {
         super(message);
-        this.name = 'EventAlreadyExistsForUser';
+        this.name = 'EventAlreadyExistsForUserError';
     }
 }
 
@@ -246,7 +246,7 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
                 throw new ContentError(`JSON decoding error because '${e.toString()}'`);
             }
         } else if (rawResponse.status == HttpStatus.CONFLICT) {
-            throw new EventAlreadyExistsForUser('User does not have a cause');
+            throw new EventAlreadyExistsForUserError('User does not have a cause');
         } else {
             throw new ContentError(`Service response ${rawResponse.status}`);
         }

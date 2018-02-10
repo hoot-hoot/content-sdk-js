@@ -7,7 +7,7 @@ export {
 export {
     ContentError,
     ContentPrivateClient,
-    EventAlreadyExistsForUser,
+    EventAlreadyExistsForUserError,
     EventNotFoundError,
     EventRemovedError,
     newContentPrivateClient,
