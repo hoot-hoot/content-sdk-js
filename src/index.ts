@@ -11,5 +11,6 @@ export {
     EventNotFoundError,
     EventRemovedError,
     newContentPrivateClient,
+    UpdateEventOptions,
     UnauthorizedContentError
 } from './client'
