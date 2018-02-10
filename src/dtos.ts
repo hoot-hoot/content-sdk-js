@@ -3,6 +3,7 @@
 /** Imports. Also so typedoc works correctly. */
 import * as r from 'raynor'
 import {
+    ArrayOf,
     ExtractError,
     Marshaller,
     MarshalFrom,
@@ -20,7 +21,7 @@ export class CreateEventRequest {
 
 /** The data associated with an update request. */
 export class UpdateEventRequest {
-    @MarshalWith(OptionalOf(MarshalFrom(SubEventDetails)))
+    @MarshalWith(OptionalOf(ArrayOf(MarshalFrom(SubEventDetails))))
     subEventDetails: SubEventDetails[] | null;
 }
 
