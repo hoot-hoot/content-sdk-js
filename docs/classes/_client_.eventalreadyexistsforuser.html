@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>EventEvent | content-sdk-js</title>
+	<title>EventAlreadyExistsForUser | content-sdk-js</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,13 +56,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_events_.html">&quot;events&quot;</a>
+					<a href="../modules/_client_.html">&quot;client&quot;</a>
 				</li>
 				<li>
-					<a href="_events_.eventevent.html">EventEvent</a>
+					<a href="_client_.eventalreadyexistsforuser.html">EventAlreadyExistsForUser</a>
 				</li>
 			</ul>
-			<h1>Class EventEvent</h1>
+			<h1>Class EventAlreadyExistsForUser</h1>
 		</div>
 	</div>
 </header>
@@ -72,7 +72,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>An event for an <a href="_entities_.event.html">Event</a>.</p>
+						<p>An error raised when an action is by an user without an event.</p>
 					</div>
 				</div>
 			</section>
@@ -80,7 +80,12 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">EventEvent</span>
+						<a href="_client_.contenterror.html" class="tsd-signature-type">ContentError</a>
+						<ul class="tsd-hierarchy">
+							<li>
+								<span class="target">EventAlreadyExistsForUser</span>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</section>
@@ -89,78 +94,84 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
+							<h3>Constructors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite"><a href="_client_.eventalreadyexistsforuser.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							</ul>
+						</section>
+						<section class="tsd-index-section tsd-is-inherited">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_events_.eventevent.html#data" class="tsd-kind-icon">data</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_events_.eventevent.html#id" class="tsd-kind-icon">id</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_events_.eventevent.html#timestamp" class="tsd-kind-icon">timestamp</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_events_.eventevent.html#type" class="tsd-kind-icon">type</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_client_.eventalreadyexistsforuser.html#message" class="tsd-kind-icon">message</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_client_.eventalreadyexistsforuser.html#name" class="tsd-kind-icon">name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-static"><a href="_client_.eventalreadyexistsforuser.html#stack" class="tsd-kind-icon">stack</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Constructors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+					<a name="constructor" class="tsd-anchor"></a>
+					<h3>constructor</h3>
+					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+						<li class="tsd-signature tsd-kind-icon">new <wbr>Event<wbr>Already<wbr>Exists<wbr>For<wbr>User<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_client_.eventalreadyexistsforuser.html" class="tsd-signature-type">EventAlreadyExistsForUser</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<p>Overrides <a href="_client_.contenterror.html">ContentError</a>.<a href="_client_.contenterror.html#constructor">constructor</a></p>
+								<ul>
+									<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/ff4ecd5/src/client.ts#L58">client.ts:58</a></li>
+								</ul>
+							</aside>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>message: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_client_.eventalreadyexistsforuser.html" class="tsd-signature-type">EventAlreadyExistsForUser</a></h4>
+						</li>
+					</ul>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group tsd-is-inherited">
 				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="data" class="tsd-anchor"></a>
-					<h3>data</h3>
-					<div class="tsd-signature tsd-kind-icon">data<span class="tsd-signature-symbol">:</span> <a href="_dtos_.createeventrequest.html" class="tsd-signature-type">CreateEventRequest</a><span class="tsd-signature-symbol"> | </span><a href="_dtos_.updateeventrequest.html" class="tsd-signature-type">UpdateEventRequest</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+					<a name="message" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> message</h3>
+					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from Error.message</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/ff4ecd5/src/events.ts#L58">events.ts:58</a></li>
+							<li>Defined in /Users/Horia/WorkA/truesparrow/content-sdk-js/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:874</li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The data for the event.</p>
-						</div>
-					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="id" class="tsd-anchor"></a>
-					<h3>id</h3>
-					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+					<a name="name" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> name</h3>
+					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from Error.name</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/ff4ecd5/src/events.ts#L44">events.ts:44</a></li>
+							<li>Defined in /Users/Horia/WorkA/truesparrow/content-sdk-js/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:873</li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The globally unique id of the event.</p>
-						</div>
-					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="timestamp" class="tsd-anchor"></a>
-					<h3>timestamp</h3>
-					<div class="tsd-signature tsd-kind-icon">timestamp<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-static">
+					<a name="stack" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagOptional">Optional</span> stack</h3>
+					<div class="tsd-signature tsd-kind-icon">stack<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
+						<p>Inherited from Error.stack</p>
+						<p>Overrides Error.stack</p>
 						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/ff4ecd5/src/events.ts#L52">events.ts:52</a></li>
+							<li>Defined in /Users/Horia/WorkA/truesparrow/content-sdk-js/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:875</li>
 						</ul>
 					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The time at which the event was recorded.</p>
-						</div>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="type" class="tsd-anchor"></a>
-					<h3>type</h3>
-					<div class="tsd-signature tsd-kind-icon">type<span class="tsd-signature-symbol">:</span> <a href="../enums/_events_.eventeventtype.html" class="tsd-signature-type">EventEventType</a></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/ff4ecd5/src/events.ts#L48">events.ts:48</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>The type of the event.</p>
-						</div>
-					</div>
 				</section>
 			</section>
 		</div>
@@ -170,7 +181,7 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class="current tsd-kind-external-module">
 						<a href="../modules/_client_.html">"client"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -179,7 +190,7 @@
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_entities_.html">"entities"</a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_events_.html">"events"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -189,30 +200,51 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
-					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
-						<a href="../enums/_events_.eventeventtype.html" class="tsd-kind-icon">Event<wbr>Event<wbr>Type</a>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_client_.contenterror.html" class="tsd-kind-icon">Content<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="_client_.contentprivateclientimpl.html" class="tsd-kind-icon">Content<wbr>Private<wbr>Client<wbr>Impl</a>
 					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_events_.eventevent.html" class="tsd-kind-icon">Event<wbr>Event</a>
+						<a href="_client_.eventalreadyexistsforuser.html" class="tsd-kind-icon">Event<wbr>Already<wbr>Exists<wbr>For<wbr>User</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_events_.eventevent.html#data" class="tsd-kind-icon">data</a>
+							<li class=" tsd-kind-constructor tsd-parent-kind-class tsd-is-overwrite">
+								<a href="_client_.eventalreadyexistsforuser.html#constructor" class="tsd-kind-icon">constructor</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_events_.eventevent.html#id" class="tsd-kind-icon">id</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+								<a href="_client_.eventalreadyexistsforuser.html#message" class="tsd-kind-icon">message</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_events_.eventevent.html#timestamp" class="tsd-kind-icon">timestamp</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
+								<a href="_client_.eventalreadyexistsforuser.html#name" class="tsd-kind-icon">name</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_events_.eventevent.html#type" class="tsd-kind-icon">type</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-static">
+								<a href="_client_.eventalreadyexistsforuser.html#stack" class="tsd-kind-icon">stack</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_client_.eventnotfounderror.html" class="tsd-kind-icon">Event<wbr>Not<wbr>Found<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_client_.eventremovederror.html" class="tsd-kind-icon">Event<wbr>Removed<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_client_.unauthorizedcontenterror.html" class="tsd-kind-icon">Unauthorized<wbr>Content<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="../interfaces/_client_.contentprivateclient.html" class="tsd-kind-icon">Content<wbr>Private<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="../interfaces/_client_.updateeventoptions.html" class="tsd-kind-icon">Update<wbr>Event<wbr>Options</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_client_.html#newcontentprivateclient" class="tsd-kind-icon">new<wbr>Content<wbr>Private<wbr>Client</a>
+					</li>
 				</ul>
 			</nav>
 		</div>

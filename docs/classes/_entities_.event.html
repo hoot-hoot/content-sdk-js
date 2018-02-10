@@ -98,6 +98,12 @@
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.event.html#timelastupdated" class="tsd-kind-icon">time<wbr>Last<wbr>Updated</a></li>
 							</ul>
 						</section>
+						<section class="tsd-index-section ">
+							<h3>Accessors</h3>
+							<ul class="tsd-index-list">
+								<li class="tsd-kind-get-signature tsd-parent-kind-class"><a href="_entities_.event.html#doeslookactive" class="tsd-kind-icon">does<wbr>Look<wbr>Active</a></li>
+							</ul>
+						</section>
 					</div>
 				</section>
 			</section>
@@ -109,7 +115,7 @@
 					<div class="tsd-signature tsd-kind-icon">id<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/0bd837b/src/entities.ts#L61">entities.ts:61</a></li>
+							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/ff4ecd5/src/entities.ts#L61">entities.ts:61</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -124,7 +130,7 @@
 					<div class="tsd-signature tsd-kind-icon">state<span class="tsd-signature-symbol">:</span> <a href="../enums/_entities_.eventstate.html" class="tsd-signature-type">EventState</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/0bd837b/src/entities.ts#L65">entities.ts:65</a></li>
+							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/ff4ecd5/src/entities.ts#L65">entities.ts:65</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -139,7 +145,7 @@
 					<div class="tsd-signature tsd-kind-icon">sub<wbr>Event<wbr>Details<span class="tsd-signature-symbol">:</span> <a href="_entities_.subeventdetails.html" class="tsd-signature-type">SubEventDetails</a><span class="tsd-signature-symbol">[]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/0bd837b/src/entities.ts#L69">entities.ts:69</a></li>
+							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/ff4ecd5/src/entities.ts#L69">entities.ts:69</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -154,7 +160,7 @@
 					<div class="tsd-signature tsd-kind-icon">time<wbr>Created<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/0bd837b/src/entities.ts#L73">entities.ts:73</a></li>
+							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/ff4ecd5/src/entities.ts#L73">entities.ts:73</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -169,7 +175,7 @@
 					<div class="tsd-signature tsd-kind-icon">time<wbr>Last<wbr>Updated<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/0bd837b/src/entities.ts#L77">entities.ts:77</a></li>
+							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/ff4ecd5/src/entities.ts#L77">entities.ts:77</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -177,6 +183,37 @@
 							<p>The time the event was last updated.</p>
 						</div>
 					</div>
+				</section>
+			</section>
+			<section class="tsd-panel-group tsd-member-group ">
+				<h2>Accessors</h2>
+				<section class="tsd-panel tsd-member tsd-kind-get-signature tsd-parent-kind-class">
+					<a name="doeslookactive" class="tsd-anchor"></a>
+					<h3>does<wbr>Look<wbr>Active</h3>
+					<ul class="tsd-signatures tsd-kind-get-signature tsd-parent-kind-class">
+						<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">get</span> doesLookActive<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/ff4ecd5/src/entities.ts#L84">entities.ts:84</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Checks whether the event looks active or not.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>note</dt>
+									<dd><p>For now, this looks to see if there&#39;s any subevent which is allowed.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
+							<p>Whether the event looks active or not.</p>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -230,6 +267,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_entities_.event.html#timelastupdated" class="tsd-kind-icon">time<wbr>Last<wbr>Updated</a>
+							</li>
+							<li class=" tsd-kind-get-signature tsd-parent-kind-class">
+								<a href="_entities_.event.html#doeslookactive" class="tsd-kind-icon">does<wbr>Look<wbr>Active</a>
 							</li>
 						</ul>
 					</li>
