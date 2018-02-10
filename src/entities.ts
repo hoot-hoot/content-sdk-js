@@ -1,7 +1,7 @@
 /** The core entities of the content service. */
 
 /** Imports. Also so typedoc works correctly. */
-import { ArrayOf, MarshalEnum, MarshalFrom, MarshalWith } from 'raynor'
+import { ArrayOf, ExtractError, MarshalEnum, MarshalFrom, MarshalWith } from 'raynor'
 import * as r from 'raynor'
 
 
@@ -10,12 +10,12 @@ import * as r from 'raynor'
  * these, unfortunately. Just that they're not 0, 1 or 2 characters.
  */
 export class AddressMarshaller extends r.StringMarshaller {
-    filter(s: string): boolean {
+    filter(s: string): string {
         if (s.length < 3) {
-            return false;
+            throw new ExtractError('String is too short to be an address');
         }
 
-        return true;
+        return s;
     }
 }
 
