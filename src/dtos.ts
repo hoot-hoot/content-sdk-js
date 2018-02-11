@@ -12,7 +12,12 @@ import {
     OptionalOf
 } from 'raynor'
 
-import { Event, SubEventDetails } from './entities'
+import {
+    Event,
+    PictureSet,
+    PictureSetMarshaller,
+    SubEventDetails
+} from './entities'
 
 
 /** The data associated with a creation request. */
@@ -21,6 +26,11 @@ export class CreateEventRequest {
 
 /** The data associated with an update request. */
 export class UpdateEventRequest {
+    /** An optional set of pictures to specify. */
+    @MarshalWith(OptionalOf(PictureSetMarshaller))
+    pictureSet: PictureSet | null;
+
+    /** An optional set of subevents to specify. */
     @MarshalWith(OptionalOf(ArrayOf(MarshalFrom(SubEventDetails))))
     subEventDetails: SubEventDetails[] | null;
 }
@@ -28,9 +38,11 @@ export class UpdateEventRequest {
 
 /** The response data for many private client APIs. */
 export class PrivateEventResponse {
+    /** Whether the event was removed or not. If true, {@link event} must be null. */
     @MarshalWith(r.BooleanMarshaller)
     eventIsRemoved: boolean;
 
+    /** An optional event. */
     @MarshalWith(OptionalOf(MarshalFrom(Event)))
     event: Event | null;
 }

@@ -19,7 +19,7 @@ import {
     PrivateEventResponseMarshaller,
     UpdateEventRequest
 } from './dtos'
-import { Event, SubEventDetails } from './entities'
+import { Event, PictureSet, SubEventDetails } from './entities'
 
 
 /** The base class for content service errors. */
@@ -65,7 +65,8 @@ export class EventAlreadyExistsForUserError extends ContentError {
 
 /** Things to update. */
 export interface UpdateEventOptions {
-    subEventDetails: SubEventDetails[];
+    pictureSet?: PictureSet;
+    subEventDetails?: SubEventDetails[];
 }
 
 /**
