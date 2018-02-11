@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>ContentError | content-sdk-js</title>
+	<title>Picture | content-sdk-js</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,13 +56,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_client_.html">&quot;client&quot;</a>
+					<a href="../modules/_entities_.html">&quot;entities&quot;</a>
 				</li>
 				<li>
-					<a href="_client_.contenterror.html">ContentError</a>
+					<a href="_entities_.picture.html">Picture</a>
 				</li>
 			</ul>
-			<h1>Class ContentError</h1>
+			<h1>Class Picture</h1>
 		</div>
 	</div>
 </header>
@@ -72,7 +72,7 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>The base class for content service errors.</p>
+						<p>An uploaded picture from a user.</p>
 					</div>
 				</div>
 			</section>
@@ -80,26 +80,7 @@
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="tsd-signature-type">Error</span>
-						<ul class="tsd-hierarchy">
-							<li>
-								<span class="target">ContentError</span>
-								<ul class="tsd-hierarchy">
-									<li>
-										<a href="_client_.unauthorizedcontenterror.html" class="tsd-signature-type">UnauthorizedContentError</a>
-									</li>
-									<li>
-										<a href="_client_.eventremovederror.html" class="tsd-signature-type">EventRemovedError</a>
-									</li>
-									<li>
-										<a href="_client_.eventnotfounderror.html" class="tsd-signature-type">EventNotFoundError</a>
-									</li>
-									<li>
-										<a href="_client_.eventalreadyexistsforusererror.html" class="tsd-signature-type">EventAlreadyExistsForUserError</a>
-									</li>
-								</ul>
-							</li>
-						</ul>
+						<span class="target">Picture</span>
 					</li>
 				</ul>
 			</section>
@@ -108,94 +89,111 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Constructors</h3>
-							<ul class="tsd-index-list">
-								<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="_client_.contenterror.html#constructor" class="tsd-kind-icon">constructor</a></li>
-							</ul>
-						</section>
-						<section class="tsd-index-section ">
 							<h3>Properties</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="_client_.contenterror.html#error" class="tsd-kind-icon">Error</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_client_.contenterror.html#message" class="tsd-kind-icon">message</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static"><a href="_client_.contenterror.html#name" class="tsd-kind-icon">name</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-static"><a href="_client_.contenterror.html#stack" class="tsd-kind-icon">stack</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.picture.html#height" class="tsd-kind-icon">height</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.picture.html#position" class="tsd-kind-icon">position</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.picture.html#uri" class="tsd-kind-icon">uri</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.picture.html#width" class="tsd-kind-icon">width</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="_entities_.picture.html#default_height" class="tsd-kind-icon">DEFAULT_<wbr>HEIGHT</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><a href="_entities_.picture.html#default_width" class="tsd-kind-icon">DEFAULT_<wbr>WIDTH</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Constructors</h2>
-				<section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class">
-					<a name="constructor" class="tsd-anchor"></a>
-					<h3>constructor</h3>
-					<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-						<li class="tsd-signature tsd-kind-icon">new <wbr>Content<wbr>Error<span class="tsd-signature-symbol">(</span>message<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_client_.contenterror.html" class="tsd-signature-type">ContentError</a></li>
-					</ul>
-					<ul class="tsd-descriptions">
-						<li class="tsd-description">
-							<aside class="tsd-sources">
-								<ul>
-									<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/e02c11d/src/client.ts#L26">client.ts:26</a></li>
-								</ul>
-							</aside>
-							<h4 class="tsd-parameters-title">Parameters</h4>
-							<ul class="tsd-parameters">
-								<li>
-									<h5>message: <span class="tsd-signature-type">string</span></h5>
-								</li>
-							</ul>
-							<h4 class="tsd-returns-title">Returns <a href="_client_.contenterror.html" class="tsd-signature-type">ContentError</a></h4>
-						</li>
-					</ul>
-				</section>
-			</section>
-			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Properties</h2>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="height" class="tsd-anchor"></a>
+					<h3>height</h3>
+					<div class="tsd-signature tsd-kind-icon">height<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/e02c11d/src/entities.ts#L54">entities.ts:54</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The height of the image. Currently defaults to <a href="_entities_.picture.html#default_height">Picture.DEFAULT_HEIGHT</a>.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="position" class="tsd-anchor"></a>
+					<h3>position</h3>
+					<div class="tsd-signature tsd-kind-icon">position<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/e02c11d/src/entities.ts#L39">entities.ts:39</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The position of the picture in a <a href="_entities_.pictureset.html">PictureSet</a>.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="uri" class="tsd-anchor"></a>
+					<h3>uri</h3>
+					<div class="tsd-signature tsd-kind-icon">uri<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/e02c11d/src/entities.ts#L46">entities.ts:46</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The URI where the image can be viewed. It has to be secure one, but not necessarily from
+							truesparrow</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="width" class="tsd-anchor"></a>
+					<h3>width</h3>
+					<div class="tsd-signature tsd-kind-icon">width<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/e02c11d/src/entities.ts#L50">entities.ts:50</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The width of the image. Currently defaults to <a href="_entities_.picture.html#default_width">Picture.DEFAULT_WIDTH</a>.</p>
+						</div>
+					</div>
+				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
-					<a name="error" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> Error</h3>
-					<div class="tsd-signature tsd-kind-icon">Error<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">ErrorConstructor</span></div>
+					<a name="default_height" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> DEFAULT_<wbr>HEIGHT</h3>
+					<div class="tsd-signature tsd-kind-icon">DEFAULT_<wbr>HEIGHT<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;900</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in /Users/Horia/WorkA/truesparrow/content-sdk-js/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:884</li>
+							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/e02c11d/src/entities.ts#L35">entities.ts:35</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The default height of an image in px. Expect all images to be of this size.</p>
+						</div>
+					</div>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-					<a name="message" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> message</h3>
-					<div class="tsd-signature tsd-kind-icon">message<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-static">
+					<a name="default_width" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagStatic">Static</span> DEFAULT_<wbr>WIDTH</h3>
+					<div class="tsd-signature tsd-kind-icon">DEFAULT_<wbr>WIDTH<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;1600</span></div>
 					<aside class="tsd-sources">
-						<p>Inherited from Error.message</p>
 						<ul>
-							<li>Defined in /Users/Horia/WorkA/truesparrow/content-sdk-js/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:874</li>
+							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/e02c11d/src/entities.ts#L33">entities.ts:33</a></li>
 						</ul>
 					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-					<a name="name" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> name</h3>
-					<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from Error.name</p>
-						<ul>
-							<li>Defined in /Users/Horia/WorkA/truesparrow/content-sdk-js/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:873</li>
-						</ul>
-					</aside>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-static">
-					<a name="stack" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagStatic">Static</span> <span class="tsd-flag ts-flagOptional">Optional</span> stack</h3>
-					<div class="tsd-signature tsd-kind-icon">stack<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
-					<aside class="tsd-sources">
-						<p>Inherited from Error.stack</p>
-						<p>Overrides Error.stack</p>
-						<ul>
-							<li>Defined in /Users/Horia/WorkA/truesparrow/content-sdk-js/node_modules/typedoc/node_modules/typescript/lib/lib.es5.d.ts:875</li>
-						</ul>
-					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The default width of an image in px. Expect all images to be of this size.</p>
+						</div>
+					</div>
 				</section>
 			</section>
 		</div>
@@ -205,13 +203,13 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_client_.html">"client"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
 						<a href="../modules/_dtos_.html">"dtos"</a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class="current tsd-kind-external-module">
 						<a href="../modules/_entities_.html">"entities"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -224,53 +222,50 @@
 			</nav>
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
+					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
+						<a href="../enums/_entities_.eventstate.html" class="tsd-kind-icon">Event<wbr>State</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_entities_.addressmarshaller.html" class="tsd-kind-icon">Address<wbr>Marshaller</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_entities_.event.html" class="tsd-kind-icon">Event</a>
+					</li>
 				</ul>
 				<ul class="current">
 					<li class="current tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_client_.contenterror.html" class="tsd-kind-icon">Content<wbr>Error</a>
+						<a href="_entities_.picture.html" class="tsd-kind-icon">Picture</a>
 						<ul>
-							<li class=" tsd-kind-constructor tsd-parent-kind-class">
-								<a href="_client_.contenterror.html#constructor" class="tsd-kind-icon">constructor</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_entities_.picture.html#height" class="tsd-kind-icon">height</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_entities_.picture.html#position" class="tsd-kind-icon">position</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_entities_.picture.html#uri" class="tsd-kind-icon">uri</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_entities_.picture.html#width" class="tsd-kind-icon">width</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
-								<a href="_client_.contenterror.html#error" class="tsd-kind-icon">Error</a>
+								<a href="_entities_.picture.html#default_height" class="tsd-kind-icon">DEFAULT_<wbr>HEIGHT</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-								<a href="_client_.contenterror.html#message" class="tsd-kind-icon">message</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-inherited tsd-is-static">
-								<a href="_client_.contenterror.html#name" class="tsd-kind-icon">name</a>
-							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited tsd-is-static">
-								<a href="_client_.contenterror.html#stack" class="tsd-kind-icon">stack</a>
+							<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-static">
+								<a href="_entities_.picture.html#default_width" class="tsd-kind-icon">DEFAULT_<wbr>WIDTH</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
-						<a href="_client_.contentprivateclientimpl.html" class="tsd-kind-icon">Content<wbr>Private<wbr>Client<wbr>Impl</a>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_entities_.pictureset.html" class="tsd-kind-icon">Picture<wbr>Set</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_client_.eventalreadyexistsforusererror.html" class="tsd-kind-icon">Event<wbr>Already<wbr>Exists<wbr>For<wbr>User<wbr>Error</a>
+						<a href="_entities_.picturesetmarshaller.html" class="tsd-kind-icon">Picture<wbr>Set<wbr>Marshaller</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_client_.eventnotfounderror.html" class="tsd-kind-icon">Event<wbr>Not<wbr>Found<wbr>Error</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_client_.eventremovederror.html" class="tsd-kind-icon">Event<wbr>Removed<wbr>Error</a>
-					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_client_.unauthorizedcontenterror.html" class="tsd-kind-icon">Unauthorized<wbr>Content<wbr>Error</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_client_.contentprivateclient.html" class="tsd-kind-icon">Content<wbr>Private<wbr>Client</a>
-					</li>
-					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
-						<a href="../interfaces/_client_.updateeventoptions.html" class="tsd-kind-icon">Update<wbr>Event<wbr>Options</a>
-					</li>
-					<li class=" tsd-kind-function tsd-parent-kind-external-module">
-						<a href="../modules/_client_.html#newcontentprivateclient" class="tsd-kind-icon">new<wbr>Content<wbr>Private<wbr>Client</a>
+						<a href="_entities_.subeventdetails.html" class="tsd-kind-icon">Sub<wbr>Event<wbr>Details</a>
 					</li>
 				</ul>
 			</nav>
