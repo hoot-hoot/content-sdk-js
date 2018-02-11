@@ -1,6 +1,6 @@
 {
     "name": "@truesparrow/content-sdk-js",
-    "version": "0.3.5",
+    "version": "0.4.0",
     "description": "The SDK for the content serivce",
     "author": "CHM SQRT2 Team",
     "scripts": {
