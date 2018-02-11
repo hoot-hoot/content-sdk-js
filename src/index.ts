@@ -1,6 +1,9 @@
 export {
     Event,
     EventState,
+    Picture,
+    PictureSet,
+    PictureSetMarshaller,
     SubEventDetails
 } from './entities'
 
