@@ -1,6 +1,6 @@
 {
     "name": "@truesparrow/content-sdk-js",
-    "version": "0.4.1",
+    "version": "0.4.2",
     "description": "The SDK for the content serivce",
     "author": "CHM SQRT2 Team",
     "scripts": {
@@ -36,7 +36,7 @@
         "@truesparrow/common-js": "latest",
         "@truesparrow/identity-sdk-js": "latest",
         "http-status-codes": "=1.3.0",
-        "raynor": "0.12.0"
+        "raynor": "0.14.0"
     },
     "devDependencies": {
         "@truesparrow/togemfury": "latest",
