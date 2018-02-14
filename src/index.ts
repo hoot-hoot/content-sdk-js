@@ -1,6 +1,7 @@
 export {
     Event,
     EventState,
+    Image,
     Picture,
     PictureSet,
     PictureSetMarshaller,
