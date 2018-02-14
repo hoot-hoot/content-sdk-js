@@ -33,6 +33,10 @@ export class Picture {
     public static readonly DEFAULT_WIDTH: number = 1600;
     /** The default height of an image in px. Expect all images to be of this size. */
     public static readonly DEFAULT_HEIGHT: number = 900;
+    /** The default width of the thumbnail image in px. Expect all thumbnails to be of this size. */
+    public static readonly THUMBNAIL_WIDTH: number = 300;
+    /** The default height of the thumbnail image in px. Expect all thumbnails to be of this size. */
+    public static readonly THUMBNAIL_HEIGHT: number = 170;
 
     /** The position of the picture in a {@link PictureSet}. */
     @MarshalWith(r.PositiveIntegerMarshaller)
@@ -44,6 +48,13 @@ export class Picture {
      */
     @MarshalWith(r.SecureWebUriMarshaller)
     uri: string;
+
+    /**
+     * The URI where a thumbnail of the image can be viewed. It has to be a secure one, but not
+     * necessarily from truesparrow.
+     */
+    @MarshalWith(r.SecureWebUriMarshaller)
+    thumbnailUri: string;
 
     /** The width of the image. Currently defaults to {@link Picture.DEFAULT_WIDTH}. */
     @MarshalWith(r.PositiveIntegerMarshaller)
