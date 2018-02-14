@@ -27,12 +27,34 @@ export class AddressMarshaller extends r.StringMarshaller {
 }
 
 
+/** A single image stored on a server. */
+export class Image {
+    /** The uri of the image. Not necessarily on truesparrow. */
+    @MarshalWith(r.SecureWebUriMarshaller)
+    uri: string;
+
+    /** The format of the image. Will be jpg. */
+    @MarshalWith(r.StringMarshaller)
+    format: string;
+
+    /** The width of the image. */
+    @MarshalWith(r.PositiveIntegerMarshaller)
+    width: number;
+
+    /** The height of the image. */
+    @MarshalWith(r.PositiveIntegerMarshaller)
+    height: number;
+}
+
+
 /** An uploaded picture from a user. */
 export class Picture {
+    /** The default format of images. */
+    public static readonly FORMAT: string = 'jpg';
     /** The default width of an image in px. Expect all images to be of this size. */
-    public static readonly DEFAULT_WIDTH: number = 1600;
+    public static readonly MAIN_WIDTH: number = 1600;
     /** The default height of an image in px. Expect all images to be of this size. */
-    public static readonly DEFAULT_HEIGHT: number = 900;
+    public static readonly MAIN_HEIGHT: number = 900;
     /** The default width of the thumbnail image in px. Expect all thumbnails to be of this size. */
     public static readonly THUMBNAIL_WIDTH: number = 300;
     /** The default height of the thumbnail image in px. Expect all thumbnails to be of this size. */
@@ -42,27 +64,13 @@ export class Picture {
     @MarshalWith(r.PositiveIntegerMarshaller)
     position: number;
 
-    /**
-     * The URI where the image can be viewed. It has to be secure one, but not necessarily from
-     * truesparrow
-     */
-    @MarshalWith(r.SecureWebUriMarshaller)
-    uri: string;
+    /** The main image, the one intended for site display. */
+    @MarshalWith(MarshalFrom(Image))
+    mainImage: Image;
 
-    /**
-     * The URI where a thumbnail of the image can be viewed. It has to be a secure one, but not
-     * necessarily from truesparrow.
-     */
-    @MarshalWith(r.SecureWebUriMarshaller)
-    thumbnailUri: string;
-
-    /** The width of the image. Currently defaults to {@link Picture.DEFAULT_WIDTH}. */
-    @MarshalWith(r.PositiveIntegerMarshaller)
-    width: number;
-
-    /** The height of the image. Currently defaults to {@link Picture.DEFAULT_HEIGHT}. */
-    @MarshalWith(r.PositiveIntegerMarshaller)
-    height: number;
+    /** A thumbnail image, for quick display in galleries etc. */
+    @MarshalWith(MarshalFrom(Image))
+    thumbnailImage: Image;
 }
 
 

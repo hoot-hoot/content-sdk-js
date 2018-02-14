@@ -1,16 +1,27 @@
 import { expect } from 'chai'
 import 'mocha'
 
-import { Event, Picture, PictureSet, SubEventDetails } from './entities'
+import { Event, Image, Picture, PictureSet, SubEventDetails } from './entities'
 
 
 describe('Event', () => {
     describe('doesLookActive', () => {
+        const mainImage = new Image();
+        mainImage.uri = 'https://example.com/picture.jpeg';
+        mainImage.format = Picture.FORMAT;
+        mainImage.width = Picture.MAIN_WIDTH;
+        mainImage.height = Picture.MAIN_HEIGHT;
+
+        const thumbnailImage = new Image();
+        thumbnailImage.uri = 'https://example.com/picture-thumb.jpeg';
+        thumbnailImage.format = Picture.FORMAT;
+        thumbnailImage.width = Picture.THUMBNAIL_WIDTH;
+        thumbnailImage.height = Picture.THUMBNAIL_HEIGHT;
+
         const picture = new Picture();
         picture.position = 0;
-        picture.uri = 'https://example.com/picture.jpeg';
-        picture.width = Picture.DEFAULT_WIDTH;
-        picture.height = Picture.DEFAULT_HEIGHT;
+        picture.mainImage = mainImage;
+        picture.thumbnailImage = thumbnailImage;
 
         const subEventDetails1 = new SubEventDetails();
         subEventDetails1.haveEvent = true;
