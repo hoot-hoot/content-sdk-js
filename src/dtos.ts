@@ -40,6 +40,12 @@ export class UpdateEventRequest {
     subDomain: string | null;
 }
 
+/** The response data for many public client APIs. */
+export class PublicEventResponse {
+    @MarshalWith(MarshalFrom(Event))
+    event: Event;
+}
+
 /** The response data for many private client APIs. */
 export class PrivateEventResponse {
     /** Whether the event was removed or not. If true, {@link event} must be null. */

@@ -18,6 +18,7 @@ import {
     CreateEventRequest,
     PrivateEventResponse,
     PrivateEventResponseMarshaller,
+    PublicEventResponse,
     UpdateEventRequest
 } from './dtos'
 import { Event, PictureSet, SubEventDetails } from './entities'
@@ -69,6 +70,60 @@ export interface UpdateEventOptions {
     pictureSet?: PictureSet;
     subEventDetails?: SubEventDetails[];
     subDomain?: string;
+}
+
+/**
+ * A client for interacting with the content service, but from a public context. This is meant for
+ * guests interaction with a user's event. So it contains only read-only operations, or things
+ * which only affect linked data for the event, but never the event itself.
+ * @note There is a notion of call context, which is the user's identity. In a browser/client
+ * environment this is implicit, and provided by standard methods (cookies). In a server
+ * environment, this must be made explicit, via the {@link withContext} call.
+ * @note Things won't be relative to the current user, but rather to the event the current user
+ * is interacting with.
+ */
+export interface ContentPublicClient {
+    /**
+     * Attach a {@link SessionToken} to the client, as an explicit context for future calls.
+     * @param sessionToken - add this token to all calls made by the resulting client.
+     * @return A new client, with the session token attached.
+     */
+    withContext(sessionToken: SessionToken): ContentPublicClient;
+
+    /**
+     * Retrieve the event starting from a subdomain.
+     * @throws When the event does not exist, it raises {@link NoEventForUserError}.
+     * @throws When the user is not authorized to perform the action, it raises {@link UnauthorizedContentError}.
+     * @throws When something bad happens in the communication, it raises {@link ContentError}.
+     * @return The event at the subdomain.
+     */
+    getEventBySubDomain(subDomain: string): Promise<Event>;
+}
+
+/**
+ * Create a {@link ContentPublicClient}.
+ * @param env - the {@link Env} the client is running in.
+ * @param origin - the [origin]{@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin}
+ *     to use for the requests originating from the client. Doesn't "change" things for browser work.
+ * @param contentServiceHost - the hostname for the content service servers.
+ * @param webFetcher - a {@link WebFetcher} to use to make requests.
+ * @return a new {@link ContentPublicClient}. On server there's no context, whereas on the browser it's implied.
+ */
+export function newContentPublicClient(
+    env: Env,
+    origin: string,
+    contentServiceHost: string,
+    webFetcher: WebFetcher): ContentPublicClient {
+    const sessionTokenMarshaller = new (MarshalFrom(SessionToken))();
+    const publicEventResponseMarshaller = new (MarshalFrom(PublicEventResponse))();
+
+    return new ContentPublicClientImpl(
+        env,
+        origin,
+        contentServiceHost,
+        webFetcher,
+        sessionTokenMarshaller,
+        publicEventResponseMarshaller);
 }
 
 /**
@@ -376,6 +431,105 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
             }
         } else if (rawResponse.status == HttpStatus.UNAUTHORIZED) {
             throw new UnauthorizedContentError('User is not authorized');
+        } else {
+            throw new ContentError(`Service response ${rawResponse.status}`);
+        }
+    }
+
+    private _buildOptions(template: RequestInit, session: Session | null = null) {
+        const options = (Object as any).assign({ headers: this._defaultHeaders }, template);
+
+        if (session != null) {
+            options.headers = (Object as any).assign(options.headers, { [XSRF_TOKEN_HEADER_NAME]: session.xsrfToken });
+        }
+
+        return options;
+    }
+}
+
+class ContentPublicClientImpl implements ContentPublicClient {
+    private static readonly _getEventBySubDomainOptions: RequestInit = {
+        method: 'GET',
+        cache: 'no-cache',
+        redirect: 'error',
+        referrer: 'client',
+    };
+
+    private readonly _env: Env;
+    private readonly _origin: string;
+    private readonly _contentServiceHost: string;
+    private readonly _webFetcher: WebFetcher;
+    private readonly _sessionTokenMarshaller: Marshaller<SessionToken>;
+    private readonly _publicEventResponseMarshaller: Marshaller<PublicEventResponse>;
+    private readonly _defaultHeaders: HeadersInit;
+    private readonly _protocol: string;
+
+    constructor(
+        env: Env,
+        origin: string,
+        contentServiceHost: string,
+        webFetcher: WebFetcher,
+        sessionTokenMarshaller: Marshaller<SessionToken>,
+        publicEventResponseMarshaller: Marshaller<PublicEventResponse>,
+        sessionToken: SessionToken | null = null) {
+        this._env = env;
+        this._origin = origin;
+        this._contentServiceHost = contentServiceHost;
+        this._webFetcher = webFetcher;
+        this._sessionTokenMarshaller = sessionTokenMarshaller;
+        this._publicEventResponseMarshaller = publicEventResponseMarshaller;
+
+        this._defaultHeaders = {
+            'Origin': origin
+        }
+
+        if (sessionToken != null) {
+            this._defaultHeaders[SESSION_TOKEN_HEADER_NAME] = JSON.stringify(this._sessionTokenMarshaller.pack(sessionToken));
+        }
+
+        if (isLocal(this._env)) {
+            this._protocol = 'http';
+        } else {
+            this._protocol = 'https';
+        }
+    }
+
+    withContext(sessionToken: SessionToken): ContentPublicClient {
+        return new ContentPublicClientImpl(
+            this._env,
+            this._origin,
+            this._contentServiceHost,
+            this._webFetcher,
+            this._sessionTokenMarshaller,
+            this._publicEventResponseMarshaller,
+            sessionToken);
+    }
+
+    async getEventBySubDomain(subDomain: string): Promise<Event> {
+        const options = this._buildOptions(ContentPublicClientImpl._getEventBySubDomainOptions);
+
+        let rawResponse: Response;
+        try {
+            const encodedSubDomain = encodeURIComponent(subDomain);
+            const apiUri = `${this._protocol}://${this._contentServiceHost}/api/public/events?subdomain=${encodedSubDomain}`;
+            rawResponse = await this._webFetcher.fetch(apiUri, options);
+        } catch (e) {
+            throw new ContentError(`Request failed because '${e.toString()}'`);
+        }
+
+        if (rawResponse.ok) {
+            try {
+                const jsonResponse = await rawResponse.json();
+                const publicEventReasponse = this._publicEventResponseMarshaller.extract(jsonResponse);
+
+                return publicEventReasponse.event as Event;
+            } catch (e) {
+                throw new ContentError(`JSON decoding error because '${e.toString()}'`);
+            }
+        } else if (rawResponse.status == HttpStatus.UNAUTHORIZED) {
+            throw new UnauthorizedContentError('User is not authorized');
+        } else if (rawResponse.status == HttpStatus.NOT_FOUND) {
+            throw new EventNotFoundError('User does not have a cause');
         } else {
             throw new ContentError(`Service response ${rawResponse.status}`);
         }
