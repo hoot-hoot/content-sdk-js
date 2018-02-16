@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>PrivateEventResponse | content-sdk-js</title>
+	<title>ContentPublicClient | content-sdk-js</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -56,13 +56,13 @@
 					<a href="../globals.html">Globals</a>
 				</li>
 				<li>
-					<a href="../modules/_dtos_.html">&quot;dtos&quot;</a>
+					<a href="../modules/_client_.html">&quot;client&quot;</a>
 				</li>
 				<li>
-					<a href="_dtos_.privateeventresponse.html">PrivateEventResponse</a>
+					<a href="_client_.contentpublicclient.html">ContentPublicClient</a>
 				</li>
 			</ul>
-			<h1>Class PrivateEventResponse</h1>
+			<h1>Interface ContentPublicClient</h1>
 		</div>
 	</div>
 </header>
@@ -72,16 +72,35 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>The response data for many private client APIs.</p>
+						<p>A client for interacting with the content service, but from a public context. This is meant for
+							guests interaction with a user&#39;s event. So it contains only read-only operations, or things
+						which only affect linked data for the event, but never the event itself.</p>
 					</div>
+					<dl class="tsd-comment-tags">
+						<dt>note</dt>
+						<dd><p>There is a notion of call context, which is the user&#39;s identity. In a browser/client
+								environment this is implicit, and provided by standard methods (cookies). In a server
+							environment, this must be made explicit, via the <a href="_client_.contentpublicclient.html#withcontext">withContext</a> call.</p>
+						</dd>
+						<dt>note</dt>
+						<dd><p>Things won&#39;t be relative to the current user, but rather to the event the current user
+							is interacting with.</p>
+						</dd>
+					</dl>
 				</div>
 			</section>
 			<section class="tsd-panel tsd-hierarchy">
 				<h3>Hierarchy</h3>
 				<ul class="tsd-hierarchy">
 					<li>
-						<span class="target">PrivateEventResponse</span>
+						<span class="target">ContentPublicClient</span>
 					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel">
+				<h3>Implemented by</h3>
+				<ul class="tsd-hierarchy">
+					<li><a href="../classes/_client_.contentpublicclientimpl.html" class="tsd-signature-type">ContentPublicClientImpl</a></li>
 				</ul>
 			</section>
 			<section class="tsd-panel-group tsd-index-group">
@@ -89,46 +108,88 @@
 				<section class="tsd-panel tsd-index-panel">
 					<div class="tsd-index-content">
 						<section class="tsd-index-section ">
-							<h3>Properties</h3>
+							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_dtos_.privateeventresponse.html#event" class="tsd-kind-icon">event</a></li>
-								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_dtos_.privateeventresponse.html#eventisremoved" class="tsd-kind-icon">event<wbr>IsRemoved</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_client_.contentpublicclient.html#geteventbysubdomain" class="tsd-kind-icon">get<wbr>Event<wbr>BySub<wbr>Domain</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_client_.contentpublicclient.html#withcontext" class="tsd-kind-icon">with<wbr>Context</a></li>
 							</ul>
 						</section>
 					</div>
 				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
-				<h2>Properties</h2>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="event" class="tsd-anchor"></a>
-					<h3>event</h3>
-					<div class="tsd-signature tsd-kind-icon">event<span class="tsd-signature-symbol">:</span> <a href="_entities_.event.html" class="tsd-signature-type">Event</a><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/1261841/src/dtos.ts#L57">dtos.ts:57</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>An optional event.</p>
-						</div>
-					</div>
+				<h2>Methods</h2>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="geteventbysubdomain" class="tsd-anchor"></a>
+					<h3>get<wbr>Event<wbr>BySub<wbr>Domain</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">get<wbr>Event<wbr>BySub<wbr>Domain<span class="tsd-signature-symbol">(</span>subDomain<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/_entities_.event.html" class="tsd-signature-type">Event</a><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/1261841/src/client.ts#L100">client.ts:100</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Retrieve the event starting from a subdomain.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>When the event does not exist, it raises {@link NoEventForUserError}.</p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p>When the user is not authorized to perform the action, it raises <a href="../classes/_client_.unauthorizedcontenterror.html">UnauthorizedContentError</a>.</p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p>When something bad happens in the communication, it raises <a href="../classes/_client_.contenterror.html">ContentError</a>.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>subDomain: <span class="tsd-signature-type">string</span></h5>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../classes/_entities_.event.html" class="tsd-signature-type">Event</a><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>The event at the subdomain.</p>
+						</li>
+					</ul>
 				</section>
-				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
-					<a name="eventisremoved" class="tsd-anchor"></a>
-					<h3>event<wbr>IsRemoved</h3>
-					<div class="tsd-signature tsd-kind-icon">event<wbr>IsRemoved<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/1261841/src/dtos.ts#L53">dtos.ts:53</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Whether the event was removed or not. If true, <a href="_dtos_.privateeventresponse.html#event">event</a> must be null.</p>
-						</div>
-					</div>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="withcontext" class="tsd-anchor"></a>
+					<h3>with<wbr>Context</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">with<wbr>Context<span class="tsd-signature-symbol">(</span>sessionToken<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">SessionToken</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="_client_.contentpublicclient.html" class="tsd-signature-type">ContentPublicClient</a></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/1261841/src/client.ts#L91">client.ts:91</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Attach a {@link SessionToken} to the client, as an explicit context for future calls.</p>
+								</div>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>sessionToken: <span class="tsd-signature-type">SessionToken</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>add this token to all calls made by the resulting client.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <a href="_client_.contentpublicclient.html" class="tsd-signature-type">ContentPublicClient</a></h4>
+							<p>A new client, with the session token attached.</p>
+						</li>
+					</ul>
 				</section>
 			</section>
 		</div>
@@ -138,10 +199,10 @@
 					<li class="globals  ">
 						<a href="../globals.html"><em>Globals</em></a>
 					</li>
-					<li class=" tsd-kind-external-module">
+					<li class="current tsd-kind-external-module">
 						<a href="../modules/_client_.html">"client"</a>
 					</li>
-					<li class="current tsd-kind-external-module">
+					<li class=" tsd-kind-external-module">
 						<a href="../modules/_dtos_.html">"dtos"</a>
 					</li>
 					<li class=" tsd-kind-external-module">
@@ -158,34 +219,52 @@
 			<nav class="tsd-navigation secondary menu-sticky">
 				<ul class="before-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_dtos_.checksubdomainavailableresponse.html" class="tsd-kind-icon">Check<wbr>Sub<wbr>Domain<wbr>Available<wbr>Response</a>
+						<a href="../classes/_client_.contenterror.html" class="tsd-kind-icon">Content<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../classes/_client_.contentprivateclientimpl.html" class="tsd-kind-icon">Content<wbr>Private<wbr>Client<wbr>Impl</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../classes/_client_.contentpublicclientimpl.html" class="tsd-kind-icon">Content<wbr>Public<wbr>Client<wbr>Impl</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_dtos_.createeventrequest.html" class="tsd-kind-icon">Create<wbr>Event<wbr>Request</a>
+						<a href="../classes/_client_.eventalreadyexistsforusererror.html" class="tsd-kind-icon">Event<wbr>Already<wbr>Exists<wbr>For<wbr>User<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="../classes/_client_.eventnotfounderror.html" class="tsd-kind-icon">Event<wbr>Not<wbr>Found<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="../classes/_client_.eventremovederror.html" class="tsd-kind-icon">Event<wbr>Removed<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="../classes/_client_.unauthorizedcontenterror.html" class="tsd-kind-icon">Unauthorized<wbr>Content<wbr>Error</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_client_.contentprivateclient.html" class="tsd-kind-icon">Content<wbr>Private<wbr>Client</a>
 					</li>
 				</ul>
 				<ul class="current">
-					<li class="current tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_dtos_.privateeventresponse.html" class="tsd-kind-icon">Private<wbr>Event<wbr>Response</a>
+					<li class="current tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_client_.contentpublicclient.html" class="tsd-kind-icon">Content<wbr>Public<wbr>Client</a>
 						<ul>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_dtos_.privateeventresponse.html#event" class="tsd-kind-icon">event</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_client_.contentpublicclient.html#geteventbysubdomain" class="tsd-kind-icon">get<wbr>Event<wbr>BySub<wbr>Domain</a>
 							</li>
-							<li class=" tsd-kind-property tsd-parent-kind-class">
-								<a href="_dtos_.privateeventresponse.html#eventisremoved" class="tsd-kind-icon">event<wbr>IsRemoved</a>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_client_.contentpublicclient.html#withcontext" class="tsd-kind-icon">with<wbr>Context</a>
 							</li>
 						</ul>
 					</li>
 				</ul>
 				<ul class="after-current">
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_dtos_.privateeventresponsemarshaller.html" class="tsd-kind-icon">Private<wbr>Event<wbr>Response<wbr>Marshaller</a>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_client_.updateeventoptions.html" class="tsd-kind-icon">Update<wbr>Event<wbr>Options</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_dtos_.publiceventresponse.html" class="tsd-kind-icon">Public<wbr>Event<wbr>Response</a>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_client_.html#newcontentprivateclient" class="tsd-kind-icon">new<wbr>Content<wbr>Private<wbr>Client</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
-						<a href="_dtos_.updateeventrequest.html" class="tsd-kind-icon">Update<wbr>Event<wbr>Request</a>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_client_.html#newcontentpublicclient" class="tsd-kind-icon">new<wbr>Content<wbr>Public<wbr>Client</a>
 					</li>
 				</ul>
 			</nav>

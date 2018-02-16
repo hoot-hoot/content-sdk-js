@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>AddressMarshaller | content-sdk-js</title>
+	<title>SubDomainMarshaller | content-sdk-js</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../assets/css/main.css">
@@ -59,10 +59,10 @@
 					<a href="../modules/_entities_.html">&quot;entities&quot;</a>
 				</li>
 				<li>
-					<a href="_entities_.addressmarshaller.html">AddressMarshaller</a>
+					<a href="_entities_.subdomainmarshaller.html">SubDomainMarshaller</a>
 				</li>
 			</ul>
-			<h1>Class AddressMarshaller</h1>
+			<h1>Class SubDomainMarshaller</h1>
 		</div>
 	</div>
 </header>
@@ -72,8 +72,8 @@
 			<section class="tsd-panel tsd-comment">
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>A marshaller for strings which represent addresses. We can&#39;t really have more structure on
-						these, unfortunately. Just that they&#39;re not 0, 1 or 2 characters.</p>
+						<p>A marshaller for subdomains. This is really restricted, only a-z or -, with
+						a letter being the first and last characters, and no more than one consecutive 0.</p>
 					</div>
 				</div>
 			</section>
@@ -84,7 +84,7 @@
 						<span class="tsd-signature-type">StringMarshaller</span>
 						<ul class="tsd-hierarchy">
 							<li>
-								<span class="target">AddressMarshaller</span>
+								<span class="target">SubDomainMarshaller</span>
 							</li>
 						</ul>
 					</li>
@@ -103,13 +103,13 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_entities_.addressmarshaller.html#build" class="tsd-kind-icon">build</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_entities_.addressmarshaller.html#extract" class="tsd-kind-icon">extract</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_entities_.addressmarshaller.html#filter" class="tsd-kind-icon">filter</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_entities_.addressmarshaller.html#lower" class="tsd-kind-icon">lower</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_entities_.addressmarshaller.html#pack" class="tsd-kind-icon">pack</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_entities_.addressmarshaller.html#raise" class="tsd-kind-icon">raise</a></li>
-								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_entities_.addressmarshaller.html#unbuild" class="tsd-kind-icon">unbuild</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_entities_.subdomainmarshaller.html#build" class="tsd-kind-icon">build</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_entities_.subdomainmarshaller.html#extract" class="tsd-kind-icon">extract</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class"><a href="_entities_.subdomainmarshaller.html#filter" class="tsd-kind-icon">filter</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_entities_.subdomainmarshaller.html#lower" class="tsd-kind-icon">lower</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><a href="_entities_.subdomainmarshaller.html#pack" class="tsd-kind-icon">pack</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_entities_.subdomainmarshaller.html#raise" class="tsd-kind-icon">raise</a></li>
+								<li class="tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited"><a href="_entities_.subdomainmarshaller.html#unbuild" class="tsd-kind-icon">unbuild</a></li>
 							</ul>
 						</section>
 					</div>
@@ -176,7 +176,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/1261841/src/entities.ts#L20">entities.ts:20</a></li>
+									<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/1261841/src/entities.ts#L37">entities.ts:37</a></li>
 								</ul>
 							</aside>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -318,36 +318,9 @@
 					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
 						<a href="../enums/_entities_.eventstate.html" class="tsd-kind-icon">Event<wbr>State</a>
 					</li>
-				</ul>
-				<ul class="current">
-					<li class="current tsd-kind-class tsd-parent-kind-external-module">
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_entities_.addressmarshaller.html" class="tsd-kind-icon">Address<wbr>Marshaller</a>
-						<ul>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
-								<a href="_entities_.addressmarshaller.html#build" class="tsd-kind-icon">build</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_entities_.addressmarshaller.html#extract" class="tsd-kind-icon">extract</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class">
-								<a href="_entities_.addressmarshaller.html#filter" class="tsd-kind-icon">filter</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
-								<a href="_entities_.addressmarshaller.html#lower" class="tsd-kind-icon">lower</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
-								<a href="_entities_.addressmarshaller.html#pack" class="tsd-kind-icon">pack</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
-								<a href="_entities_.addressmarshaller.html#raise" class="tsd-kind-icon">raise</a>
-							</li>
-							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
-								<a href="_entities_.addressmarshaller.html#unbuild" class="tsd-kind-icon">unbuild</a>
-							</li>
-						</ul>
 					</li>
-				</ul>
-				<ul class="after-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_entities_.event.html" class="tsd-kind-icon">Event</a>
 					</li>
@@ -363,9 +336,36 @@
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_entities_.picturesetmarshaller.html" class="tsd-kind-icon">Picture<wbr>Set<wbr>Marshaller</a>
 					</li>
-					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+				</ul>
+				<ul class="current">
+					<li class="current tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_entities_.subdomainmarshaller.html" class="tsd-kind-icon">Sub<wbr>Domain<wbr>Marshaller</a>
+						<ul>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+								<a href="_entities_.subdomainmarshaller.html#build" class="tsd-kind-icon">build</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_entities_.subdomainmarshaller.html#extract" class="tsd-kind-icon">extract</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class">
+								<a href="_entities_.subdomainmarshaller.html#filter" class="tsd-kind-icon">filter</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+								<a href="_entities_.subdomainmarshaller.html#lower" class="tsd-kind-icon">lower</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-inherited">
+								<a href="_entities_.subdomainmarshaller.html#pack" class="tsd-kind-icon">pack</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+								<a href="_entities_.subdomainmarshaller.html#raise" class="tsd-kind-icon">raise</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-overwrite tsd-is-inherited">
+								<a href="_entities_.subdomainmarshaller.html#unbuild" class="tsd-kind-icon">unbuild</a>
+							</li>
+						</ul>
 					</li>
+				</ul>
+				<ul class="after-current">
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_entities_.subeventdetails.html" class="tsd-kind-icon">Sub<wbr>Event<wbr>Details</a>
 					</li>

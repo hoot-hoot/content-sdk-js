@@ -106,6 +106,7 @@
 						<section class="tsd-index-section ">
 							<h3>Methods</h3>
 							<ul class="tsd-index-list">
+								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_client_.contentprivateclient.html#checksubdomainavailable" class="tsd-kind-icon">check<wbr>Sub<wbr>Domain<wbr>Available</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_client_.contentprivateclient.html#createevent" class="tsd-kind-icon">create<wbr>Event</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_client_.contentprivateclient.html#getevent" class="tsd-kind-icon">get<wbr>Event</a></li>
 								<li class="tsd-kind-method tsd-parent-kind-interface"><a href="_client_.contentprivateclient.html#updateevent" class="tsd-kind-icon">update<wbr>Event</a></li>
@@ -118,6 +119,46 @@
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Methods</h2>
 				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
+					<a name="checksubdomainavailable" class="tsd-anchor"></a>
+					<h3>check<wbr>Sub<wbr>Domain<wbr>Available</h3>
+					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
+						<li class="tsd-signature tsd-kind-icon">check<wbr>Sub<wbr>Domain<wbr>Available<span class="tsd-signature-symbol">(</span>subDomain<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
+						<li class="tsd-description">
+							<aside class="tsd-sources">
+								<ul>
+									<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/1261841/src/client.ts#L181">client.ts:181</a></li>
+								</ul>
+							</aside>
+							<div class="tsd-comment tsd-typography">
+								<div class="lead">
+									<p>Check whether a subdomain is available for an event or not.</p>
+								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>When the user is not authorized to perform the action, it raises <a href="../classes/_client_.unauthorizedcontenterror.html">UnauthorizedContentError</a>.</p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p>When something bad happens in the communication, it raises <a href="../classes/_client_.contenterror.html">ContentError</a>.</p>
+									</dd>
+								</dl>
+							</div>
+							<h4 class="tsd-parameters-title">Parameters</h4>
+							<ul class="tsd-parameters">
+								<li>
+									<h5>subDomain: <span class="tsd-signature-type">string</span></h5>
+									<div class="tsd-comment tsd-typography">
+										<p>the domain to check.</p>
+									</div>
+								</li>
+							</ul>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">&gt;</span></h4>
+							<p>Whether the domain is available for grabs or not.</p>
+						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-interface">
 					<a name="createevent" class="tsd-anchor"></a>
 					<h3>create<wbr>Event</h3>
 					<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-interface">
@@ -127,13 +168,18 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/d1e2937/src/client.ts#L93">client.ts:93</a></li>
+									<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/1261841/src/client.ts#L151">client.ts:151</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
 									<p>Create an event for the given user.</p>
 								</div>
+								<dl class="tsd-comment-tags">
+									<dt>throws</dt>
+									<dd><p>When something bad happens in the communication, it raises <a href="../classes/_client_.contenterror.html">ContentError</a>.</p>
+									</dd>
+								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -159,7 +205,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/d1e2937/src/client.ts#L112">client.ts:112</a></li>
+									<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/1261841/src/client.ts#L172">client.ts:172</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -175,6 +221,9 @@
 									</dd>
 									<dt>throws</dt>
 									<dd><p>When the user is not authorized to perform the action, it raises <a href="../classes/_client_.unauthorizedcontenterror.html">UnauthorizedContentError</a>.</p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p>When something bad happens in the communication, it raises <a href="../classes/_client_.contenterror.html">ContentError</a>.</p>
 									</dd>
 								</dl>
 							</div>
@@ -193,7 +242,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/d1e2937/src/client.ts#L103">client.ts:103</a></li>
+									<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/1261841/src/client.ts#L162">client.ts:162</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -209,6 +258,9 @@
 									</dd>
 									<dt>throws</dt>
 									<dd><p>When the user is not authorized to perform the action, it raises <a href="../classes/_client_.unauthorizedcontenterror.html">UnauthorizedContentError</a>.</p>
+									</dd>
+									<dt>throws</dt>
+									<dd><p>When something bad happens in the communication, it raises <a href="../classes/_client_.contenterror.html">ContentError</a>.</p>
 									</dd>
 								</dl>
 							</div>
@@ -239,7 +291,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/d1e2937/src/client.ts#L86">client.ts:86</a></li>
+									<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/1261841/src/client.ts#L143">client.ts:143</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -294,6 +346,9 @@
 					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
 						<a href="../classes/_client_.contentprivateclientimpl.html" class="tsd-kind-icon">Content<wbr>Private<wbr>Client<wbr>Impl</a>
 					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module tsd-is-not-exported">
+						<a href="../classes/_client_.contentpublicclientimpl.html" class="tsd-kind-icon">Content<wbr>Public<wbr>Client<wbr>Impl</a>
+					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="../classes/_client_.eventalreadyexistsforusererror.html" class="tsd-kind-icon">Event<wbr>Already<wbr>Exists<wbr>For<wbr>User<wbr>Error</a>
 					</li>
@@ -312,6 +367,9 @@
 						<a href="_client_.contentprivateclient.html" class="tsd-kind-icon">Content<wbr>Private<wbr>Client</a>
 						<ul>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
+								<a href="_client_.contentprivateclient.html#checksubdomainavailable" class="tsd-kind-icon">check<wbr>Sub<wbr>Domain<wbr>Available</a>
+							</li>
+							<li class=" tsd-kind-method tsd-parent-kind-interface">
 								<a href="_client_.contentprivateclient.html#createevent" class="tsd-kind-icon">create<wbr>Event</a>
 							</li>
 							<li class=" tsd-kind-method tsd-parent-kind-interface">
@@ -328,10 +386,16 @@
 				</ul>
 				<ul class="after-current">
 					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
+						<a href="_client_.contentpublicclient.html" class="tsd-kind-icon">Content<wbr>Public<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-interface tsd-parent-kind-external-module">
 						<a href="_client_.updateeventoptions.html" class="tsd-kind-icon">Update<wbr>Event<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-function tsd-parent-kind-external-module">
 						<a href="../modules/_client_.html#newcontentprivateclient" class="tsd-kind-icon">new<wbr>Content<wbr>Private<wbr>Client</a>
+					</li>
+					<li class=" tsd-kind-function tsd-parent-kind-external-module">
+						<a href="../modules/_client_.html#newcontentpublicclient" class="tsd-kind-icon">new<wbr>Content<wbr>Public<wbr>Client</a>
 					</li>
 				</ul>
 			</nav>
