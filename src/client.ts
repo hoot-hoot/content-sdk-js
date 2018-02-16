@@ -14,6 +14,7 @@ import {
 import { SessionToken } from '@truesparrow/identity-sdk-js/session-token'
 
 import {
+    CheckSubDomainAvailableResponse,
     CreateEventRequest,
     PrivateEventResponse,
     PrivateEventResponseMarshaller,
@@ -90,6 +91,7 @@ export interface ContentPrivateClient {
      * Create an event for the given user.
      * @param session - extra session information to be used by the service. For XSRF protection.
      * @return The new event attached to the user.
+     * @throws When something bad happens in the communication, it raises {@link ContentError}.
      */
     createEvent(session: Session): Promise<Event>;
 
@@ -100,6 +102,7 @@ export interface ContentPrivateClient {
      * @throws When the event does not exist, it raises {@link NoEventForUserError}.
      * @throws When the event has been deleted, it raises {@link DeletedEventForUserError}.
      * @throws When the user is not authorized to perform the action, it raises {@link UnauthorizedContentError}.
+     * @throws When something bad happens in the communication, it raises {@link ContentError}.
      */
     updateEvent(session: Session, updateOptions: UpdateEventOptions): Promise<Event>;
 
@@ -109,8 +112,18 @@ export interface ContentPrivateClient {
      * @throws When the event does not exist, it raises {@link NoEventForUserError}.
      * @throws When the event has been deleted, it raises {@link DeletedEventForUserError}.
      * @throws When the user is not authorized to perform the action, it raises {@link UnauthorizedContentError}.
+     * @throws When something bad happens in the communication, it raises {@link ContentError}.
      */
     getEvent(): Promise<Event>;
+
+    /**
+     * Check whether a subdomain is available for an event or not.
+     * @param subDomain - the domain to check.
+     * @return Whether the domain is available for grabs or not.
+     * @throws When the user is not authorized to perform the action, it raises {@link UnauthorizedContentError}.
+     * @throws When something bad happens in the communication, it raises {@link ContentError}.
+     */
+    checkSubDomainAvailable(subDomain: string): Promise<boolean>;
 }
 
 
@@ -132,6 +145,7 @@ export function newContentPrivateClient(
     const createEventRequestMarshaller = new (MarshalFrom(CreateEventRequest))();
     const updateEventRequestMarshaller = new (MarshalFrom(UpdateEventRequest))();
     const privateEventResponseMarshaller = new PrivateEventResponseMarshaller();
+    const checkSubDomainAvailableResponseMarshaller = new (MarshalFrom(CheckSubDomainAvailableResponse))();
 
     return new ContentPrivateClientImpl(
         env,
@@ -141,7 +155,8 @@ export function newContentPrivateClient(
         sessionTokenMarshaller,
         createEventRequestMarshaller,
         updateEventRequestMarshaller,
-        privateEventResponseMarshaller);
+        privateEventResponseMarshaller,
+        checkSubDomainAvailableResponseMarshaller);
 }
 
 
@@ -167,6 +182,13 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
         referrer: 'client',
     };
 
+    private static readonly _checkSubDomainAvailableOptions: RequestInit = {
+        method: 'GET',
+        cache: 'no-cache',
+        redirect: 'error',
+        referrer: 'client',
+    };
+
     private readonly _env: Env;
     private readonly _origin: string;
     private readonly _contentServiceHost: string;
@@ -175,6 +197,7 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
     private readonly _createEventRequestMarshaller: Marshaller<CreateEventRequest>;
     private readonly _updateEventRequestMarshaller: Marshaller<UpdateEventRequest>;
     private readonly _privateEventResponseMarshaller: Marshaller<PrivateEventResponse>;
+    private readonly _checkSubDomainAvailableResponseMarshaller: Marshaller<CheckSubDomainAvailableResponse>;
     private readonly _defaultHeaders: HeadersInit;
     private readonly _protocol: string;
 
@@ -187,6 +210,7 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
         createEventRequestMarshaller: Marshaller<CreateEventRequest>,
         updateEventRequestMarshaller: Marshaller<UpdateEventRequest>,
         privateEventResponseMarshaller: Marshaller<PrivateEventResponse>,
+        checkSubDomainAvailableResponseMarshaller: Marshaller<CheckSubDomainAvailableResponse>,
         sessionToken: SessionToken | null = null) {
         this._env = env;
         this._origin = origin;
@@ -196,6 +220,7 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
         this._createEventRequestMarshaller = createEventRequestMarshaller;
         this._updateEventRequestMarshaller = updateEventRequestMarshaller;
         this._privateEventResponseMarshaller = privateEventResponseMarshaller;
+        this._checkSubDomainAvailableResponseMarshaller = checkSubDomainAvailableResponseMarshaller;
 
         this._defaultHeaders = {
             'Origin': origin
@@ -222,6 +247,7 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
             this._createEventRequestMarshaller,
             this._updateEventRequestMarshaller,
             this._privateEventResponseMarshaller,
+            this._checkSubDomainAvailableResponseMarshaller,
             sessionToken);
     }
 
@@ -322,6 +348,34 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
             throw new UnauthorizedContentError('User is not authorized');
         } else if (rawResponse.status == HttpStatus.NOT_FOUND) {
             throw new EventNotFoundError('User does not have a cause');
+        } else {
+            throw new ContentError(`Service response ${rawResponse.status}`);
+        }
+    }
+
+    async checkSubDomainAvailable(subDomain: string): Promise<boolean> {
+        const options = this._buildOptions(ContentPrivateClientImpl._checkSubDomainAvailableOptions);
+
+        let rawResponse: Response;
+        try {
+            const encodedSubDomain = encodeURIComponent(subDomain);
+            const apiUri = `${this._protocol}://${this._contentServiceHost}/api/private/check-subdomain-available?subdomain=${encodedSubDomain}`;
+            rawResponse = await this._webFetcher.fetch(apiUri, options);
+        } catch (e) {
+            throw new ContentError(`Request failed because '${e.toString()}'`);
+        }
+
+        if (rawResponse.ok) {
+            try {
+                const jsonResponse = await rawResponse.json();
+                const checkSubDomainAvailableResponse = this._checkSubDomainAvailableResponseMarshaller.extract(jsonResponse);
+
+                return checkSubDomainAvailableResponse.available;
+            } catch (e) {
+                throw new ContentError(`JSON decoding error because '${e.toString()}'`);
+            }
+        } else if (rawResponse.status == HttpStatus.UNAUTHORIZED) {
+            throw new UnauthorizedContentError('User is not authorized');
         } else {
             throw new ContentError(`Service response ${rawResponse.status}`);
         }

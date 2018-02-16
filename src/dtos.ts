@@ -40,7 +40,6 @@ export class UpdateEventRequest {
     subDomain: string | null;
 }
 
-
 /** The response data for many private client APIs. */
 export class PrivateEventResponse {
     /** Whether the event was removed or not. If true, {@link event} must be null. */
@@ -52,6 +51,12 @@ export class PrivateEventResponse {
     event: Event | null;
 }
 
+/** The response data for the checkSubDomainAvailable method. */
+export class CheckSubDomainAvailableResponse {
+    /** Whether the event is available or not. */
+    @MarshalWith(r.BooleanMarshaller)
+    available: boolean;
+}
 
 /**
  * A marshaller for {@link PrivateEventResponse}. Does a bit more than a standard object marshaller.
