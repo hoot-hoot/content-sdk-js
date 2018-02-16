@@ -198,7 +198,7 @@ export class Event {
 
     /** The subdomain to use for the event. */
     @MarshalWith(SubDomainMarshaller)
-    subdomain: string;
+    subDomain: string;
 
     /** The time the event was created. */
     @MarshalWith(r.DateFromTsMarshaller)

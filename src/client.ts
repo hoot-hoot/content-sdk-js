@@ -67,6 +67,7 @@ export class EventAlreadyExistsForUserError extends ContentError {
 export interface UpdateEventOptions {
     pictureSet?: PictureSet;
     subEventDetails?: SubEventDetails[];
+    subDomain?: string;
 }
 
 /**
