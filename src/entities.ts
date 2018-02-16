@@ -27,6 +27,31 @@ export class AddressMarshaller extends r.StringMarshaller {
 }
 
 
+/**
+ * A marshaller for subdomains. This is really restricted, only a-z or -, with
+ * a letter being the first and last characters, and no more than one consecutive 0.
+ */
+export class SubDomainMarshaller extends r.StringMarshaller {
+    private static readonly _subDomainRe: RegExp = new RegExp('^[a-z]+([a-z]*-)*[a-z]+$');
+
+    filter(s: string): string {
+        if (s.length < Event.SUBDOMAIN_MIN_SIZE) {
+            throw new ExtractError(`Subdomain "${s}" is too short`);
+        }
+
+        if (s.length > Event.SUBDOMAIN_MAX_SIZE) {
+            throw new ExtractError(`Subdomain "${s}" is too long`);
+        }
+
+        if (!SubDomainMarshaller._subDomainRe.test(s)) {
+            throw new ExtractError(`Subdomain "${s}" is an invalid format`);
+        }
+
+        return s;
+    }
+}
+
+
 /** A single image stored on a server. */
 export class Image {
     /** The uri of the image. Not necessarily on truesparrow. */
@@ -150,6 +175,11 @@ export enum EventState {
 
 /** Details about an event. */
 export class Event {
+    /** The minimum allowed size for a subdomain. */
+    public static readonly SUBDOMAIN_MIN_SIZE = 4;
+    /** The maximum allowed size for a subdomain. */
+    public static readonly SUBDOMAIN_MAX_SIZE = 58;
+
     /** The globally unique id of the event. */
     @MarshalWith(r.IdMarshaller)
     id: number;
@@ -165,6 +195,10 @@ export class Event {
     /** The various sub-events making up the event. */
     @MarshalWith(ArrayOf(MarshalFrom(SubEventDetails)))
     subEventDetails: SubEventDetails[]
+
+    /** The subdomain to use for the event. */
+    @MarshalWith(SubDomainMarshaller)
+    subdomain: string;
 
     /** The time the event was created. */
     @MarshalWith(r.DateFromTsMarshaller)
