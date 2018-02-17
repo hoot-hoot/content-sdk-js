@@ -18,6 +18,7 @@ export {
     EventRemovedError,
     newContentPrivateClient,
     newContentPublicClient,
+    SubDomainInUseError,
     UpdateEventOptions,
     UnauthorizedContentError
 } from './client'

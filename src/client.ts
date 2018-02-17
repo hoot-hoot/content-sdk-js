@@ -64,6 +64,14 @@ export class EventAlreadyExistsForUserError extends ContentError {
     }
 }
 
+/** Error raised when a subdomain is already used. */
+export class SubDomainInUseError extends ContentError {
+    constructor(message: string) {
+        super(message);
+        this.name = 'SubDomainInUseError';
+    }
+}
+
 
 /** Things to update. */
 export interface UpdateEventOptions {
@@ -155,6 +163,8 @@ export interface ContentPrivateClient {
      * @param session - extra session information to be used by the service. For XSRF protection.
      * @return The updated event attached to the user.
      * @throws When the event does not exist, it raises {@link NoEventForUserError}.
+     * @throws When an update on the subdomain is attempted, but the subdomain is already in use, it
+     *     raises {@link SubDomainInUseError}.
      * @throws When the event has been deleted, it raises {@link DeletedEventForUserError}.
      * @throws When the user is not authorized to perform the action, it raises {@link UnauthorizedContentError}.
      * @throws When something bad happens in the communication, it raises {@link ContentError}.
@@ -369,6 +379,8 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
             }
         } else if (rawResponse.status == HttpStatus.UNAUTHORIZED) {
             throw new UnauthorizedContentError('User is not authorized');
+        } else if (rawResponse.status == HttpStatus.CONFLICT) {
+            throw new SubDomainInUseError('Subdomain is already in use');
         } else if (rawResponse.status == HttpStatus.NOT_FOUND) {
             throw new EventNotFoundError('User does not have a cause');
         } else {
