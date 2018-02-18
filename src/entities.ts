@@ -32,7 +32,7 @@ export class AddressMarshaller extends r.StringMarshaller {
  * a letter being the first and last characters, and no more than one consecutive 0.
  */
 export class SubDomainMarshaller extends r.StringMarshaller {
-    private static readonly _subDomainRe: RegExp = new RegExp('^[a-z]+([a-z]*-)*[a-z]+$');
+    private static readonly _subDomainRe: RegExp = new RegExp('^[a-z][a-z0-9]+([a-z0-9]*-)*[a-z0-9]+$');
 
     filter(s: string): string {
         if (s.length < Event.SUBDOMAIN_MIN_SIZE) {
