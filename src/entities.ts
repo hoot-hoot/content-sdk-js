@@ -27,6 +27,31 @@ export class AddressMarshaller extends r.StringMarshaller {
 }
 
 
+/** The reason a subdomain was considered invalid. */
+export enum SubDomainErrorReason {
+    /** Nothing bad happened. */
+    OK = 0,
+    /** Lower level error. */
+    LowerLevel = 1,
+    /** The subdomain has less than {@link Event.SUBDOMAIN_MIN_SIZE} chars. */
+    TooShort = 2,
+    /** The subdomain has more than {@link Event.SUBDOMAIN_MAX_SIZE} chars. */
+    TooLong = 3,
+    /** The subdomain contained invalid characters. */
+    InvalidCharacters = 4
+}
+
+/** The custom error raised by the {@link SubDomainMarshaller}. */
+export class SubDomainExtractError extends ExtractError {
+    reason: SubDomainErrorReason;
+    constructor(message: string, reason: SubDomainErrorReason) {
+        super(message);
+        this.name = 'SubDomainExtractError';
+        this.reason = reason;
+    }
+}
+
+
 /**
  * A marshaller for subdomains. This is really restricted, only a-z or -, with
  * a letter being the first and last characters, and no more than one consecutive 0.
@@ -36,18 +61,31 @@ export class SubDomainMarshaller extends r.StringMarshaller {
 
     filter(s: string): string {
         if (s.length < Event.SUBDOMAIN_MIN_SIZE) {
-            throw new ExtractError(`Subdomain "${s}" is too short`);
+            throw new SubDomainExtractError(`Subdomain "${s}" is too short`, SubDomainErrorReason.TooShort);
         }
 
         if (s.length > Event.SUBDOMAIN_MAX_SIZE) {
-            throw new ExtractError(`Subdomain "${s}" is too long`);
+            throw new SubDomainExtractError(`Subdomain "${s}" is too long`, SubDomainErrorReason.TooLong);
         }
 
         if (!SubDomainMarshaller._subDomainRe.test(s)) {
-            throw new ExtractError(`Subdomain "${s}" is an invalid format`);
+            throw new SubDomainExtractError(`Subdomain "${s}" is an invalid format`, SubDomainErrorReason.InvalidCharacters);
         }
 
         return s;
+    }
+
+    verify(s: string): SubDomainErrorReason {
+        try {
+            this.extract(s);
+            return SubDomainErrorReason.OK;
+        } catch (e) {
+            if (e.name == 'SubDomainExtractError') {
+                return (e as SubDomainExtractError).reason;
+            } else {
+                return SubDomainErrorReason.LowerLevel;
+            }
+        }
     }
 }
 
