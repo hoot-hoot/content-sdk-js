@@ -11,6 +11,8 @@ import {
 } from 'raynor'
 import * as r from 'raynor'
 
+import { Env, isLocal } from '@truesparrow/common-js'
+
 
 /**
  * A marshaller for strings which represent addresses. We can't really have more structure on
@@ -262,5 +264,19 @@ export class Event {
         }
 
         return true;
+    }
+
+    /**
+     * Construct the public home URI of the event.
+     * @param env - the environment we're considering.
+     * @param siteFeHost - the host of the sitefe service.
+     * @return The value of the public home URI.
+     */
+    homeUri(env: Env, siteFeHost: string): string {
+        if (isLocal(env)) {
+            return `http://${this.subDomain}.${siteFeHost}/`;
+        } else {
+            return `https://${this.subDomain}.${siteFeHost}/`;
+        }
     }
 }
