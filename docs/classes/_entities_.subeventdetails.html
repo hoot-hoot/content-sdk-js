@@ -95,6 +95,7 @@
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.subeventdetails.html#coordinates" class="tsd-kind-icon">coordinates</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.subeventdetails.html#dateandtime" class="tsd-kind-icon">date<wbr>And<wbr>Time</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.subeventdetails.html#haveevent" class="tsd-kind-icon">have<wbr>Event</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-class"><a href="_entities_.subeventdetails.html#slug" class="tsd-kind-icon">slug</a></li>
 							</ul>
 						</section>
 					</div>
@@ -108,7 +109,7 @@
 					<div class="tsd-signature tsd-kind-icon">address<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/1261841/src/entities.ts#L150">entities.ts:150</a></li>
+							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/8d41210/src/entities.ts#L194">entities.ts:194</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -123,9 +124,14 @@
 					<div class="tsd-signature tsd-kind-icon">coordinates<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/1261841/src/entities.ts#L153">entities.ts:153</a></li>
+							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/8d41210/src/entities.ts#L198">entities.ts:198</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The coordinates where the thing takes place. Derived from address.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="dateandtime" class="tsd-anchor"></a>
@@ -133,9 +139,14 @@
 					<div class="tsd-signature tsd-kind-icon">date<wbr>And<wbr>Time<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Date</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/1261841/src/entities.ts#L156">entities.ts:156</a></li>
+							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/8d41210/src/entities.ts#L202">entities.ts:202</a></li>
 						</ul>
 					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The date and time at which the event occurs.</p>
+						</div>
+					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
 					<a name="haveevent" class="tsd-anchor"></a>
@@ -143,12 +154,27 @@
 					<div class="tsd-signature tsd-kind-icon">have<wbr>Event<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/1261841/src/entities.ts#L146">entities.ts:146</a></li>
+							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/8d41210/src/entities.ts#L186">entities.ts:186</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
 							<p>Whether to hold the event or not.</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class">
+					<a name="slug" class="tsd-anchor"></a>
+					<h3>slug</h3>
+					<div class="tsd-signature tsd-kind-icon">slug<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/truesparrow/content-sdk-js/blob/8d41210/src/entities.ts#L190">entities.ts:190</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>A slug associated with the subevent. For use in UIs.</p>
 						</div>
 					</div>
 				</section>
@@ -182,6 +208,9 @@
 					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
 						<a href="../enums/_entities_.eventstate.html" class="tsd-kind-icon">Event<wbr>State</a>
 					</li>
+					<li class=" tsd-kind-enum tsd-parent-kind-external-module">
+						<a href="../enums/_entities_.subdomainerrorreason.html" class="tsd-kind-icon">Sub<wbr>Domain<wbr>Error<wbr>Reason</a>
+					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_entities_.addressmarshaller.html" class="tsd-kind-icon">Address<wbr>Marshaller</a>
 					</li>
@@ -199,6 +228,9 @@
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_entities_.picturesetmarshaller.html" class="tsd-kind-icon">Picture<wbr>Set<wbr>Marshaller</a>
+					</li>
+					<li class=" tsd-kind-class tsd-parent-kind-external-module">
+						<a href="_entities_.subdomainextracterror.html" class="tsd-kind-icon">Sub<wbr>Domain<wbr>Extract<wbr>Error</a>
 					</li>
 					<li class=" tsd-kind-class tsd-parent-kind-external-module">
 						<a href="_entities_.subdomainmarshaller.html" class="tsd-kind-icon">Sub<wbr>Domain<wbr>Marshaller</a>
@@ -219,6 +251,9 @@
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-class">
 								<a href="_entities_.subeventdetails.html#haveevent" class="tsd-kind-icon">have<wbr>Event</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-class">
+								<a href="_entities_.subeventdetails.html#slug" class="tsd-kind-icon">slug</a>
 							</li>
 						</ul>
 					</li>
