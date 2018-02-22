@@ -185,13 +185,19 @@ export class SubEventDetails {
     @MarshalWith(r.BooleanMarshaller)
     haveEvent: boolean;
 
+    /** A slug associated with the subevent. For use in UIs. */
+    @MarshalWith(r.SlugMarshaller)
+    slug: string;
+
     /** The address of a user. Must be longer than three characters. */
     @MarshalWith(AddressMarshaller)
     address: string;
 
+    /** The coordinates where the thing takes place. Derived from address. */
     @MarshalWith(r.ArrayOf(r.NumberMarshaller))
     coordinates: [number, number];
 
+    /** The date and time at which the event occurs. */
     @MarshalWith(r.DateFromTsMarshaller)
     dateAndTime: Date;
 }
