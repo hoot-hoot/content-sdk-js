@@ -100,6 +100,8 @@ export interface ContentPublicClient {
 
     /**
      * Retrieve the event starting from a subdomain.
+     * @note Events which are inactive or removed are not returned. The thing must
+     * be {@link EventState.Active}.
      * @throws When the event does not exist, it raises {@link NoEventForUserError}.
      * @throws When the user is not authorized to perform the action, it raises {@link UnauthorizedContentError}.
      * @throws When something bad happens in the communication, it raises {@link ContentError}.
