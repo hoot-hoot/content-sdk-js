@@ -8,6 +8,7 @@ export {
     SubDomainErrorReason,
     SubDomainMarshaller,
     SubEventDetails,
+    TitleMarshaller
 } from './entities'
 
 export {

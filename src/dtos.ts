@@ -17,7 +17,8 @@ import {
     PictureSet,
     PictureSetMarshaller,
     SubDomainMarshaller,
-    SubEventDetails
+    SubEventDetails,
+    TitleMarshaller
 } from './entities'
 
 
@@ -34,6 +35,10 @@ export class UpdateEventRequest {
     /** An optional set of subevents to specify. */
     @MarshalWith(OptionalOf(ArrayOf(MarshalFrom(SubEventDetails))))
     subEventDetails: SubEventDetails[] | null;
+
+    /** An optional title to use. */
+    @MarshalWith(OptionalOf(TitleMarshaller))
+    title: string | null;
 
     /** An optional subdomain to use. */
     @MarshalWith(OptionalOf(SubDomainMarshaller))

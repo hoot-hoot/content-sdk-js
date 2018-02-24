@@ -77,6 +77,7 @@ export class SubDomainInUseError extends ContentError {
 export interface UpdateEventOptions {
     pictureSet?: PictureSet;
     subEventDetails?: SubEventDetails[];
+    title?: string;
     subDomain?: string;
 }
 
