@@ -28,6 +28,10 @@ export class CreateEventRequest {
 
 /** The data associated with an update request. */
 export class UpdateEventRequest {
+    /** An optional title to use. */
+    @MarshalWith(OptionalOf(TitleMarshaller))
+    title: string | null;
+
     /** An optional set of pictures to specify. */
     @MarshalWith(OptionalOf(PictureSetMarshaller))
     pictureSet: PictureSet | null;
@@ -35,10 +39,6 @@ export class UpdateEventRequest {
     /** An optional set of subevents to specify. */
     @MarshalWith(OptionalOf(ArrayOf(MarshalFrom(SubEventDetails))))
     subEventDetails: SubEventDetails[] | null;
-
-    /** An optional title to use. */
-    @MarshalWith(OptionalOf(TitleMarshaller))
-    title: string | null;
 
     /** An optional subdomain to use. */
     @MarshalWith(OptionalOf(SubDomainMarshaller))

@@ -285,6 +285,10 @@ export class Event {
     @MarshalWith(MarshalEnum(EventState))
     state: EventState;
 
+    /** The title of the event. */
+    @MarshalWith(TitleMarshaller)
+    title: string;
+
     /** The set of pictures for the event. */
     @MarshalWith(PictureSetMarshaller)
     pictureSet: PictureSet;
@@ -292,10 +296,6 @@ export class Event {
     /** The various sub-events making up the event. */
     @MarshalWith(ArrayOf(MarshalFrom(SubEventDetails)))
     subEventDetails: SubEventDetails[]
-
-    /** The title of the event. */
-    @MarshalWith(TitleMarshaller)
-    title: string;
 
     /** The subdomain to use for the event. */
     @MarshalWith(SubDomainMarshaller)
