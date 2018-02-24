@@ -15,6 +15,28 @@ import { Env, isLocal, MessageWith0Arg, MessageWith0ArgMarshaller } from '@trues
 
 
 /**
+ * A marshaller for titles of all sorts. Just checks that the title is not empty,
+ * and at most 128 characters.
+ * TODO: improve all of the sizing information here!
+ */
+export class TitleMarshaller extends r.MaxLengthStringMarshaller {
+    constructor() {
+        super(128);
+    }
+
+    filter(s: string): string {
+        var title = s.trim();
+
+        if (title == '') {
+            throw new ExtractError('Expected a non empty string');
+        }
+
+        return title;
+    }
+}
+
+
+/**
  * A marshaller for strings which represent addresses. We can't really have more structure on
  * these, unfortunately. Just that they're not 0, 1 or 2 characters.
  */
@@ -270,6 +292,10 @@ export class Event {
     /** The various sub-events making up the event. */
     @MarshalWith(ArrayOf(MarshalFrom(SubEventDetails)))
     subEventDetails: SubEventDetails[]
+
+    /** The title of the event. */
+    @MarshalWith(TitleMarshaller)
+    title: string;
 
     /** The subdomain to use for the event. */
     @MarshalWith(SubDomainMarshaller)
