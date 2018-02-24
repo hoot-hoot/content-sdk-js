@@ -25,9 +25,19 @@ describe('Event', () => {
 
         const subEventDetails1 = new SubEventDetails();
         subEventDetails1.haveEvent = true;
+        subEventDetails1.title = { 'en': 'A title' };
+        subEventDetails1.slug = 'a-title';
 
         const subEventDetails2 = new SubEventDetails();
         subEventDetails2.haveEvent = false;
+        subEventDetails2.title = { 'en': 'Another title' };
+        subEventDetails2.slug = 'another-title';
+
+        const subEventDetails3 = new SubEventDetails();
+        subEventDetails3.haveEvent = true;
+        subEventDetails3.title = {};
+        subEventDetails3.slug = '';
+
 
         it('should return true for an event with active subevents and pictures', () => {
             const event = new Event();
@@ -67,6 +77,15 @@ describe('Event', () => {
             event.pictureSet = new PictureSet();
             event.pictureSet.pictures = [picture];
             event.subEventDetails = [subEventDetails2];
+
+            expect(event.doesLookActive).to.be.false;
+        });
+
+        it('should return false for an event with an enabled but not active subevent', () => {
+            const event = new Event();
+            event.pictureSet = new PictureSet();
+            event.pictureSet.pictures = [picture];
+            event.subEventDetails = [subEventDetails3];
 
             expect(event.doesLookActive).to.be.false;
         });

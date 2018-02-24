@@ -11,7 +11,7 @@ import {
 } from 'raynor'
 import * as r from 'raynor'
 
-import { Env, isLocal } from '@truesparrow/common-js'
+import { Env, isLocal, MessageWith0Arg, MessageWith0ArgMarshaller } from '@truesparrow/common-js'
 
 
 /**
@@ -185,7 +185,11 @@ export class SubEventDetails {
     @MarshalWith(r.BooleanMarshaller)
     haveEvent: boolean;
 
-    /** A slug associated with the subevent. For use in UIs. */
+    /** The title of the sub event. */
+    @MarshalWith(MessageWith0ArgMarshaller)
+    title: MessageWith0Arg;
+
+    /** A slug associated with the subevent. For use in UIs. Related to the title. */
     @MarshalWith(r.SlugMarshaller)
     slug: string;
 
@@ -200,6 +204,31 @@ export class SubEventDetails {
     /** The date and time at which the event occurs. */
     @MarshalWith(r.DateFromTsMarshaller)
     dateAndTime: Date;
+
+    /**
+     * Checks whether the sub event looks active or not.
+     * @note For now, this just checks that the title and slug are set to something,
+     *     but doesn't look into the address and DateTime being more than whatever
+     *     the marshallers enforce.
+     * @return Whether the event looks active or not.
+     */
+    get doesLookActive(): boolean {
+        if (Object.keys(this.title).length == 0) {
+            return false;
+        }
+
+        for (let lang of Object.keys(this.title)) {
+            if (this.title[lang].length == 0) {
+                return false;
+            }
+        }
+
+        if (this.slug.length == 0) {
+            return false;
+        }
+
+        return true;
+    }
 }
 
 
@@ -257,7 +286,7 @@ export class Event {
     /**
      * Checks whether the event looks active or not.
      * @note For now, this looks to see if there's any subevent which is allowed and if there are
-     *     some pictures.
+     *     some pictures. It also checks that the subevents which are enabled can be active.
      * @return Whether the event looks active or not.
      */
     get doesLookActive(): boolean {
@@ -266,6 +295,10 @@ export class Event {
         }
 
         if (this.subEventDetails.every(sed => !sed.haveEvent)) {
+            return false;
+        }
+
+        if (this.subEventDetails.filter(sed => sed.haveEvent).some(sed => !sed.doesLookActive)) {
             return false;
         }
 
