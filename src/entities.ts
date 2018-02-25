@@ -75,18 +75,44 @@ export class TitleMarshaller extends r.StringMarshaller {
     }
 }
 
+/** The reason the address was considered invalid. */
+export enum AddressErrorReason {
+    /** Nothing bad happened. */
+    OK = 0,
+    /** Lower level error. */
+    LowerLevel = 1,
+    /** The address was less than {@link AddressMarshaller.ADDRESS_MIN_SIZE} characters. */
+    TooShort = 2
+}
+
 
 /**
  * A marshaller for strings which represent addresses. We can't really have more structure on
  * these, unfortunately. Just that they're not 0, 1 or 2 characters.
  */
 export class AddressMarshaller extends r.StringMarshaller {
+    /** The minimum size of an address. */
+    public static readonly ADDRESS_MIN_SIZE = 3;
+
     filter(s: string): string {
-        if (s.length < 3) {
-            throw new ExtractError('String is too short to be an address');
+        if (s.length < AddressMarshaller.ADDRESS_MIN_SIZE) {
+            throw new ReasonedExtractError<AddressErrorReason>('String is too short to be an address', AddressErrorReason.TooShort);
         }
 
         return s;
+    }
+
+    verify(s: string): AddressErrorReason {
+        try {
+            this.extract(s);
+            return AddressErrorReason.OK;
+        } catch (e) {
+            if (e.name == 'ReasonedExtractError') {
+                return (e as ReasonedExtractError<AddressErrorReason>).reason;
+            } else {
+                return AddressErrorReason.LowerLevel;
+            }
+        }
     }
 }
 

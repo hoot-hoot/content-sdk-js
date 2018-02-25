@@ -1,4 +1,6 @@
 export {
+    AddressErrorReason,
+    AddressMarshaller,
     Event,
     EventState,
     Image,
