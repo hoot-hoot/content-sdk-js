@@ -14,24 +14,64 @@ import * as r from 'raynor'
 import { Env, isLocal, MessageWith0Arg, MessageWith0ArgMarshaller } from '@truesparrow/common-js'
 
 
+/** The custom error raised by the {@link SubDomainMarshaller}. */
+export class ReasonedExtractError<E> extends ExtractError {
+    reason: E;
+    constructor(message: string, reason: E) {
+        super(message);
+        this.name = 'ReasonedExtractError';
+        this.reason = reason;
+    }
+}
+
+/** The reason the title was considered invalid. */
+export enum TitleErrorReason {
+    /** Nothing bad happened. */
+    OK = 0,
+    /** Lower level error. */
+    LowerLevel = 1,
+    /** The title has less than {@link TitleMarshaller.TITLE_MIN_SIZE} characters. */
+    TooShort = 2,
+    /** The title has more than {@link TitleMarshaller.TITLE_MAX_SIZE} characters. */
+    TooLong = 3
+}
+
+
 /**
- * A marshaller for titles of all sorts. Just checks that the title is not empty,
- * and at most 128 characters.
+ * A marshaller for titles of all sorts.
  * TODO: improve all of the sizing information here!
  */
-export class TitleMarshaller extends r.MaxLengthStringMarshaller {
-    constructor() {
-        super(128);
-    }
+export class TitleMarshaller extends r.StringMarshaller {
+    /** The minimum allowed size for a title. */
+    private static readonly TITLE_MIN_SIZE = 4;
+    /** The maximum allowed size for a title. */
+    private static readonly TITLE_MAX_SIZE = 128;
 
     filter(s: string): string {
         var title = s.trim();
 
-        if (title == '') {
-            throw new ExtractError('Expected a non empty string');
+        if (title.length < TitleMarshaller.TITLE_MIN_SIZE) {
+            throw new ReasonedExtractError<TitleErrorReason>(`Title "${s}" is too short`, TitleErrorReason.TooShort);
+        }
+
+        if (title.length > TitleMarshaller.TITLE_MAX_SIZE) {
+            throw new ReasonedExtractError<TitleErrorReason>(`Title "${s}" is too long`, TitleErrorReason.TooLong);
         }
 
         return title;
+    }
+
+    verify(s: string): TitleErrorReason {
+        try {
+            this.extract(s);
+            return TitleErrorReason.OK;
+        } catch (e) {
+            if (e.name == 'ReasonedExtractError') {
+                return (e as ReasonedExtractError<TitleErrorReason>).reason;
+            } else {
+                return TitleErrorReason.LowerLevel;
+            }
+        }
     }
 }
 
@@ -65,35 +105,30 @@ export enum SubDomainErrorReason {
     InvalidCharacters = 4
 }
 
-/** The custom error raised by the {@link SubDomainMarshaller}. */
-export class SubDomainExtractError extends ExtractError {
-    reason: SubDomainErrorReason;
-    constructor(message: string, reason: SubDomainErrorReason) {
-        super(message);
-        this.name = 'SubDomainExtractError';
-        this.reason = reason;
-    }
-}
-
 
 /**
  * A marshaller for subdomains. This is really restricted, only a-z or -, with
  * a letter being the first and last characters, and no more than one consecutive 0.
  */
 export class SubDomainMarshaller extends r.StringMarshaller {
+    /** The minimum allowed size for a subdomain. */
+    public static readonly SUBDOMAIN_MIN_SIZE = 4;
+    /** The maximum allowed size for a subdomain. */
+    public static readonly SUBDOMAIN_MAX_SIZE = 58;
+
     private static readonly _subDomainRe: RegExp = new RegExp('^[a-z][-]?([a-z0-9]+-)*[a-z0-9]+$');
 
     filter(s: string): string {
-        if (s.length < Event.SUBDOMAIN_MIN_SIZE) {
-            throw new SubDomainExtractError(`Subdomain "${s}" is too short`, SubDomainErrorReason.TooShort);
+        if (s.length < SubDomainMarshaller.SUBDOMAIN_MIN_SIZE) {
+            throw new ReasonedExtractError(`Subdomain "${s}" is too short`, SubDomainErrorReason.TooShort);
         }
 
-        if (s.length > Event.SUBDOMAIN_MAX_SIZE) {
-            throw new SubDomainExtractError(`Subdomain "${s}" is too long`, SubDomainErrorReason.TooLong);
+        if (s.length > SubDomainMarshaller.SUBDOMAIN_MAX_SIZE) {
+            throw new ReasonedExtractError(`Subdomain "${s}" is too long`, SubDomainErrorReason.TooLong);
         }
 
         if (!SubDomainMarshaller._subDomainRe.test(s)) {
-            throw new SubDomainExtractError(`Subdomain "${s}" is an invalid format`, SubDomainErrorReason.InvalidCharacters);
+            throw new ReasonedExtractError(`Subdomain "${s}" is an invalid format`, SubDomainErrorReason.InvalidCharacters);
         }
 
         return s;
@@ -104,8 +139,8 @@ export class SubDomainMarshaller extends r.StringMarshaller {
             this.extract(s);
             return SubDomainErrorReason.OK;
         } catch (e) {
-            if (e.name == 'SubDomainExtractError') {
-                return (e as SubDomainExtractError).reason;
+            if (e.name == 'ReasonedExtractError') {
+                return (e as ReasonedExtractError<SubDomainErrorReason>).reason;
             } else {
                 return SubDomainErrorReason.LowerLevel;
             }
@@ -272,11 +307,6 @@ export enum EventState {
 
 /** Details about an event. */
 export class Event {
-    /** The minimum allowed size for a subdomain. */
-    public static readonly SUBDOMAIN_MIN_SIZE = 4;
-    /** The maximum allowed size for a subdomain. */
-    public static readonly SUBDOMAIN_MAX_SIZE = 58;
-
     /** The globally unique id of the event. */
     @MarshalWith(r.IdMarshaller)
     id: number;
