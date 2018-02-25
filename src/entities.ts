@@ -43,9 +43,9 @@ export enum TitleErrorReason {
  */
 export class TitleMarshaller extends r.StringMarshaller {
     /** The minimum allowed size for a title. */
-    private static readonly TITLE_MIN_SIZE = 4;
+    public static readonly TITLE_MIN_SIZE = 4;
     /** The maximum allowed size for a title. */
-    private static readonly TITLE_MAX_SIZE = 128;
+    public static readonly TITLE_MAX_SIZE = 128;
 
     filter(s: string): string {
         var title = s.trim();
