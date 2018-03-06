@@ -262,6 +262,22 @@ export class PictureSetMarshaller implements Marshaller<PictureSet> {
 }
 
 
+/** Details about the display and styling of sub-events. */
+export class SubEventDisplayInfo {
+    /** The icon to use for display. */
+    @MarshalWith(r.StringMarshaller)
+    icon: string;
+
+    /** The main color. */
+    @MarshalWith(r.StringMarshaller)
+    mainColor: string;
+
+    /** The secondary color. Use for highlights and contrasts etc. */
+    @MarshalWith(r.StringMarshaller)
+    secondaryColor: string;
+}
+
+
 /** Details about a sub-event of the main event. */
 export class SubEventDetails {
     /** Whether to hold the event or not. */
@@ -287,6 +303,10 @@ export class SubEventDetails {
     /** The date and time at which the event occurs. */
     @MarshalWith(r.DateFromTsMarshaller)
     dateAndTime: Date;
+
+    /** Display and style information about the sub event. */
+    @MarshalWith(MarshalFrom(SubEventDisplayInfo))
+    display: SubEventDisplayInfo;
 
     /**
      * Checks whether the sub event looks active or not.

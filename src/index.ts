@@ -9,6 +9,7 @@ export {
     PictureSetMarshaller,
     SubDomainErrorReason,
     SubDomainMarshaller,
+    SubEventDisplayInfo,
     SubEventDetails,
     TitleErrorReason,
     TitleMarshaller
