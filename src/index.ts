@@ -9,8 +9,8 @@ export {
     PictureSetMarshaller,
     SubDomainErrorReason,
     SubDomainMarshaller,
-    SubEventDisplayInfo,
     SubEventDetails,
+    SubEventDisplayInfo,
     TitleErrorReason,
     TitleMarshaller
 } from './entities'

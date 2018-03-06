@@ -270,11 +270,7 @@ export class SubEventDisplayInfo {
 
     /** The main color. */
     @MarshalWith(r.StringMarshaller)
-    mainColor: string;
-
-    /** The secondary color. Use for highlights and contrasts etc. */
-    @MarshalWith(r.StringMarshaller)
-    secondaryColor: string;
+    color: string;
 }
 
 
