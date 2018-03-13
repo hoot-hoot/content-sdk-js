@@ -178,7 +178,7 @@ export class SubDomainMarshaller extends r.StringMarshaller {
 /** A single image stored on a server. */
 export class Image {
     /** The uri of the image. Not necessarily on truesparrow. */
-    @MarshalWith(r.SecureWebUriMarshaller)
+    @MarshalWith(r.WebUriMarshaller)
     uri: string;
 
     /** The format of the image. Will be jpg. */
