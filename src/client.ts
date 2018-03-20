@@ -5,7 +5,7 @@ import 'isomorphic-fetch'
 import * as HttpStatus from 'http-status-codes'
 import { Marshaller, MarshalFrom } from 'raynor'
 
-import { Env, isLocal, WebFetcher } from '@truesparrow/common-js'
+import { Env, isNotOnServer, WebFetcher } from '@truesparrow/common-js'
 import { Session } from '@truesparrow/identity-sdk-js'
 import {
     SESSION_TOKEN_HEADER_NAME,
@@ -298,7 +298,7 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
             this._defaultHeaders[SESSION_TOKEN_HEADER_NAME] = JSON.stringify(this._sessionTokenMarshaller.pack(sessionToken));
         }
 
-        if (isLocal(this._env)) {
+        if (isNotOnServer(this._env)) {
             this._protocol = 'http';
         } else {
             this._protocol = 'https';
@@ -502,7 +502,7 @@ class ContentPublicClientImpl implements ContentPublicClient {
             this._defaultHeaders[SESSION_TOKEN_HEADER_NAME] = JSON.stringify(this._sessionTokenMarshaller.pack(sessionToken));
         }
 
-        if (isLocal(this._env)) {
+        if (isNotOnServer(this._env)) {
             this._protocol = 'http';
         } else {
             this._protocol = 'https';
