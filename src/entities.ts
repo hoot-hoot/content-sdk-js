@@ -11,7 +11,12 @@ import {
 } from 'raynor'
 import * as r from 'raynor'
 
-import { Env, isLocal, MessageWith0Arg, MessageWith0ArgMarshaller } from '@truesparrow/common-js'
+import {
+    Env,
+    isNotOnServer,
+    MessageWith0Arg,
+    MessageWith0ArgMarshaller
+} from '@truesparrow/common-js'
 
 
 /** The custom error raised by the {@link SubDomainMarshaller}. */
@@ -410,7 +415,7 @@ export class Event {
      * @return The value of the public home URI.
      */
     homeUri(env: Env, siteFeHost: string): string {
-        if (isLocal(env)) {
+        if (isNotOnServer(env)) {
             return `http://${this.subDomain}.${siteFeHost}/`;
         } else {
             return `https://${this.subDomain}.${siteFeHost}/`;
