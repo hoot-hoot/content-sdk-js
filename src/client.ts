@@ -5,7 +5,7 @@ import 'isomorphic-fetch'
 import * as HttpStatus from 'http-status-codes'
 import { Marshaller, MarshalFrom } from 'raynor'
 
-import { Env, isNotOnServer, WebFetcher } from '@truesparrow/common-js'
+import { WebFetcher } from '@truesparrow/common-js'
 import { Session } from '@truesparrow/identity-sdk-js'
 import {
     SESSION_TOKEN_HEADER_NAME,
@@ -113,7 +113,6 @@ export interface ContentPublicClient {
 
 /**
  * Create a {@link ContentPublicClient}.
- * @param env - the {@link Env} the client is running in.
  * @param origin - the [origin]{@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin}
  *     to use for the requests originating from the client. Doesn't "change" things for browser work.
  * @param contentServiceHost - the hostname for the content service servers.
@@ -121,7 +120,6 @@ export interface ContentPublicClient {
  * @return a new {@link ContentPublicClient}. On server there's no context, whereas on the browser it's implied.
  */
 export function newContentPublicClient(
-    env: Env,
     origin: string,
     contentServiceHost: string,
     webFetcher: WebFetcher): ContentPublicClient {
@@ -129,7 +127,6 @@ export function newContentPublicClient(
     const publicEventResponseMarshaller = new (MarshalFrom(PublicEventResponse))();
 
     return new ContentPublicClientImpl(
-        env,
         origin,
         contentServiceHost,
         webFetcher,
@@ -197,7 +194,6 @@ export interface ContentPrivateClient {
 
 /**
  * Create a {@link ContentPrivateClient}.
- * @param env - the {@link Env} the client is running in.
  * @param origin - the [origin]{@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Origin}
  *     to use for the requests originating from the client. Doesn't "change" things for browser work.
  * @param contentServiceHost - the hostname for the content service servers.
@@ -205,7 +201,6 @@ export interface ContentPrivateClient {
  * @return a new {@link ContentPrivateClient}. On server there's no context, whereas on the browser it's implied.
  */
 export function newContentPrivateClient(
-    env: Env,
     origin: string,
     contentServiceHost: string,
     webFetcher: WebFetcher): ContentPrivateClient {
@@ -216,7 +211,6 @@ export function newContentPrivateClient(
     const checkSubDomainAvailableResponseMarshaller = new (MarshalFrom(CheckSubDomainAvailableResponse))();
 
     return new ContentPrivateClientImpl(
-        env,
         origin,
         contentServiceHost,
         webFetcher,
@@ -257,7 +251,6 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
         referrer: 'client',
     };
 
-    private readonly _env: Env;
     private readonly _origin: string;
     private readonly _contentServiceHost: string;
     private readonly _webFetcher: WebFetcher;
@@ -267,10 +260,8 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
     private readonly _privateEventResponseMarshaller: Marshaller<PrivateEventResponse>;
     private readonly _checkSubDomainAvailableResponseMarshaller: Marshaller<CheckSubDomainAvailableResponse>;
     private readonly _defaultHeaders: HeadersInit;
-    private readonly _protocol: string;
 
     constructor(
-        env: Env,
         origin: string,
         contentServiceHost: string,
         webFetcher: WebFetcher,
@@ -280,7 +271,6 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
         privateEventResponseMarshaller: Marshaller<PrivateEventResponse>,
         checkSubDomainAvailableResponseMarshaller: Marshaller<CheckSubDomainAvailableResponse>,
         sessionToken: SessionToken | null = null) {
-        this._env = env;
         this._origin = origin;
         this._contentServiceHost = contentServiceHost;
         this._webFetcher = webFetcher;
@@ -297,17 +287,10 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
         if (sessionToken != null) {
             this._defaultHeaders[SESSION_TOKEN_HEADER_NAME] = JSON.stringify(this._sessionTokenMarshaller.pack(sessionToken));
         }
-
-        if (isNotOnServer(this._env)) {
-            this._protocol = 'http';
-        } else {
-            this._protocol = 'http'; // TODO: fix this later
-        }
     }
 
     withContext(sessionToken: SessionToken): ContentPrivateClient {
         return new ContentPrivateClientImpl(
-            this._env,
             this._origin,
             this._contentServiceHost,
             this._webFetcher,
@@ -328,7 +311,7 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
 
         let rawResponse: Response;
         try {
-            rawResponse = await this._webFetcher.fetch(`${this._protocol}://${this._contentServiceHost}/api/private/events`, options);
+            rawResponse = await this._webFetcher.fetch(`http://${this._contentServiceHost}/api/private/events`, options);
         } catch (e) {
             throw new ContentError(`Request failed because '${e.toString()}'`);
         }
@@ -362,7 +345,7 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
 
         let rawResponse: Response;
         try {
-            rawResponse = await this._webFetcher.fetch(`${this._protocol}://${this._contentServiceHost}/api/private/events`, options);
+            rawResponse = await this._webFetcher.fetch(`http://${this._contentServiceHost}/api/private/events`, options);
         } catch (e) {
             throw new ContentError(`Request failed because '${e.toString()}'`);
         }
@@ -396,7 +379,7 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
 
         let rawResponse: Response;
         try {
-            rawResponse = await this._webFetcher.fetch(`${this._protocol}://${this._contentServiceHost}/api/private/events`, options);
+            rawResponse = await this._webFetcher.fetch(`http://${this._contentServiceHost}/api/private/events`, options);
         } catch (e) {
             throw new ContentError(`Request failed because '${e.toString()}'`);
         }
@@ -429,7 +412,7 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
         let rawResponse: Response;
         try {
             const encodedSubDomain = encodeURIComponent(subDomain);
-            const apiUri = `${this._protocol}://${this._contentServiceHost}/api/private/check-subdomain-available?subdomain=${encodedSubDomain}`;
+            const apiUri = `http://${this._contentServiceHost}/api/private/check-subdomain-available?subdomain=${encodedSubDomain}`;
             rawResponse = await this._webFetcher.fetch(apiUri, options);
         } catch (e) {
             throw new ContentError(`Request failed because '${e.toString()}'`);
@@ -470,24 +453,20 @@ class ContentPublicClientImpl implements ContentPublicClient {
         referrer: 'client',
     };
 
-    private readonly _env: Env;
     private readonly _origin: string;
     private readonly _contentServiceHost: string;
     private readonly _webFetcher: WebFetcher;
     private readonly _sessionTokenMarshaller: Marshaller<SessionToken>;
     private readonly _publicEventResponseMarshaller: Marshaller<PublicEventResponse>;
     private readonly _defaultHeaders: HeadersInit;
-    private readonly _protocol: string;
 
     constructor(
-        env: Env,
         origin: string,
         contentServiceHost: string,
         webFetcher: WebFetcher,
         sessionTokenMarshaller: Marshaller<SessionToken>,
         publicEventResponseMarshaller: Marshaller<PublicEventResponse>,
         sessionToken: SessionToken | null = null) {
-        this._env = env;
         this._origin = origin;
         this._contentServiceHost = contentServiceHost;
         this._webFetcher = webFetcher;
@@ -501,17 +480,10 @@ class ContentPublicClientImpl implements ContentPublicClient {
         if (sessionToken != null) {
             this._defaultHeaders[SESSION_TOKEN_HEADER_NAME] = JSON.stringify(this._sessionTokenMarshaller.pack(sessionToken));
         }
-
-        if (isNotOnServer(this._env)) {
-            this._protocol = 'http';
-        } else {
-            this._protocol = 'http'; // TODO: fix this later
-        }
     }
 
     withContext(sessionToken: SessionToken): ContentPublicClient {
         return new ContentPublicClientImpl(
-            this._env,
             this._origin,
             this._contentServiceHost,
             this._webFetcher,
@@ -526,7 +498,7 @@ class ContentPublicClientImpl implements ContentPublicClient {
         let rawResponse: Response;
         try {
             const encodedSubDomain = encodeURIComponent(subDomain);
-            const apiUri = `${this._protocol}://${this._contentServiceHost}/api/public/events?subdomain=${encodedSubDomain}`;
+            const apiUri = `http://${this._contentServiceHost}/api/public/events?subdomain=${encodedSubDomain}`;
             rawResponse = await this._webFetcher.fetch(apiUri, options);
         } catch (e) {
             throw new ContentError(`Request failed because '${e.toString()}'`);
