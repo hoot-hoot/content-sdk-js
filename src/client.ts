@@ -301,7 +301,7 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
         if (isNotOnServer(this._env)) {
             this._protocol = 'http';
         } else {
-            this._protocol = 'https';
+            this._protocol = 'http'; // TODO: fix this later
         }
     }
 
@@ -505,7 +505,7 @@ class ContentPublicClientImpl implements ContentPublicClient {
         if (isNotOnServer(this._env)) {
             this._protocol = 'http';
         } else {
-            this._protocol = 'https';
+            this._protocol = 'http'; // TODO: fix this later
         }
     }
 
