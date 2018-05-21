@@ -161,6 +161,7 @@ export interface ContentPrivateClient {
     /**
      * Update the event for the user.
      * @param session - extra session information to be used by the service. For XSRF protection.
+     * @param updateOptions - things to update.
      * @return The updated event attached to the user.
      * @throws When the event does not exist, it raises {@link NoEventForUserError}.
      * @throws When an update on the subdomain is attempted, but the subdomain is already in use, it
@@ -170,6 +171,17 @@ export interface ContentPrivateClient {
      * @throws When something bad happens in the communication, it raises {@link ContentError}.
      */
     updateEvent(session: Session, updateOptions: UpdateEventOptions): Promise<Event>;
+
+    /**
+     * Mark the UI state of showing the setup wizard as done
+     * @param session - extra session information to be used by the service. For XSRF protection
+     * @return The updated event attached to the user.
+     * @throws When the event does not exist, it raises {@link NoEventForUserError}.
+     * @throws When the event has been deleted, it raises {@link DeletedEventForUserError}.
+     * @throws When the user is not authorized to perform the action, it raises {@link UnauthorizedContentError}.
+     * @throws When something bad happens in the communication, it raises {@link ContentError}.
+     */
+    uiMarkSkippedSetupWizard(session: Session): Promise<Event>;
 
     /**
      * Retrieve the event for the user.
@@ -231,6 +243,13 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
     };
 
     private static readonly _updateEventOptions: RequestInit = {
+        method: 'PUT',
+        cache: 'no-cache',
+        redirect: 'error',
+        referrer: 'client',
+    };
+
+    private static readonly _uiMarkSkippedSetupWizard: RequestInit = {
         method: 'PUT',
         cache: 'no-cache',
         redirect: 'error',
@@ -367,6 +386,38 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
             throw new UnauthorizedContentError('User is not authorized');
         } else if (rawResponse.status == HttpStatus.CONFLICT) {
             throw new SubDomainInUseError('Subdomain is already in use');
+        } else if (rawResponse.status == HttpStatus.NOT_FOUND) {
+            throw new EventNotFoundError('User does not have a cause');
+        } else {
+            throw new ContentError(`Service response ${rawResponse.status}`);
+        }
+    }
+
+    async uiMarkSkippedSetupWizard(session: Session): Promise<Event> {
+        const options = this._buildOptions(ContentPrivateClientImpl._uiMarkSkippedSetupWizard, session);
+
+        let rawResponse: Response;
+        try {
+            rawResponse = await this._webFetcher.fetch(`http://${this._contentServiceHost}/api/private/events/ui-mark-skipped-setup-wizard`, options);
+        } catch (e) {
+            throw new ContentError(`Request failed because '${e.toString()}'`);
+        }
+
+        if (rawResponse.ok) {
+            try {
+                const jsonResponse = await rawResponse.json();
+                const privateEventResponse = this._privateEventResponseMarshaller.extract(jsonResponse);
+
+                if (privateEventResponse.eventIsRemoved) {
+                    throw new EventRemovedError('Event already deleted');
+                }
+
+                return privateEventResponse.event as Event;
+            } catch (e) {
+                throw new ContentError(`JSON decoding error because '${e.toString()}'`);
+            }
+        } else if (rawResponse.status == HttpStatus.UNAUTHORIZED) {
+            throw new UnauthorizedContentError('User is not authorized');
         } else if (rawResponse.status == HttpStatus.NOT_FOUND) {
             throw new EventNotFoundError('User does not have a cause');
         } else {

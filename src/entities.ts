@@ -352,6 +352,14 @@ export enum EventState {
 }
 
 
+/** UI information about an event. */
+export class EventUiState {
+    /** Whether to show the setup wizard or not in the admin interface. */
+    @MarshalWith(r.BooleanMarshaller)
+    showSetupWizard: boolean;
+}
+
+
 /** Details about an event. */
 export class Event {
     /** The globally unique id of the event. */
@@ -385,6 +393,10 @@ export class Event {
     /** The time the event was last updated. */
     @MarshalWith(r.DateFromTsMarshaller)
     timeLastUpdated: Date;
+
+    /** UI state for the event. */
+    @MarshalWith(MarshalFrom(EventUiState))
+    uiState: EventUiState;
 
     /**
      * Checks whether the event looks active or not.
