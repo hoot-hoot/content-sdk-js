@@ -380,7 +380,11 @@ export class Event {
 
     /** The various sub-events making up the event. */
     @MarshalWith(ArrayOf(MarshalFrom(SubEventDetails)))
-    subEventDetails: SubEventDetails[]
+    subEventDetails: SubEventDetails[];
+
+    /** UI state for the event. */
+    @MarshalWith(MarshalFrom(EventUiState))
+    uiState: EventUiState;
 
     /** The subdomain to use for the event. */
     @MarshalWith(SubDomainMarshaller)
@@ -393,10 +397,6 @@ export class Event {
     /** The time the event was last updated. */
     @MarshalWith(r.DateFromTsMarshaller)
     timeLastUpdated: Date;
-
-    /** UI state for the event. */
-    @MarshalWith(MarshalFrom(EventUiState))
-    uiState: EventUiState;
 
     /**
      * Checks whether the event looks active or not.
