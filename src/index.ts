@@ -3,6 +3,7 @@ export {
     AddressMarshaller,
     Event,
     EventState,
+    EventUiState,
     Image,
     Picture,
     PictureSet,
