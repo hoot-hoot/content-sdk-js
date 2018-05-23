@@ -34,7 +34,10 @@ export enum EventEventType {
     Deactivated = 4,
 
     /** The event was removed. */
-    Removed = 5
+    Removed = 5,
+
+    /** The user skipped the setup wizard. */
+    UiMarkedSkippedSetupWizard = 6
 }
 
 /** An event for an {@link Event}. */
