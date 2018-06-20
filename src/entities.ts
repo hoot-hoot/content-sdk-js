@@ -359,6 +359,15 @@ export class EventUiState {
     showSetupWizard: boolean;
 }
 
+/** The plan an event is using. */
+export enum EventPlan {
+    /** The quick starter plan. Id corresponds to one in Chargebee. */
+    QuickStarter = 'quick-starter',
+
+    /** The long term thinker plan. Id corresponds to one in Chargebee. */
+    LongTermThinker = 'long-term-thinker'
+}
+
 
 /** Details about an event. */
 export class Event {
@@ -385,6 +394,10 @@ export class Event {
     /** UI state for the event. */
     @MarshalWith(MarshalFrom(EventUiState))
     uiState: EventUiState;
+
+    /** The plan. */
+    @MarshalWith(MarshalEnum(EventPlan))
+    plan: EventPlan;
 
     /** The subdomain to use for the event. */
     @MarshalWith(SubDomainMarshaller)

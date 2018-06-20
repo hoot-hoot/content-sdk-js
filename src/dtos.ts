@@ -6,6 +6,7 @@ import {
     ArrayOf,
     ExtractError,
     Marshaller,
+    MarshalEnum,
     MarshalFrom,
     MarshalWith,
     ObjectMarshaller,
@@ -14,6 +15,7 @@ import {
 
 import {
     Event,
+    EventPlan,
     PictureSet,
     PictureSetMarshaller,
     SubDomainMarshaller,
@@ -24,6 +26,9 @@ import {
 
 /** The data associated with a creation request. */
 export class CreateEventRequest {
+    /** The plan the event is using. */
+    @MarshalWith(MarshalEnum(EventPlan))
+    plan: EventPlan;
 }
 
 /** The data associated with an update request. */

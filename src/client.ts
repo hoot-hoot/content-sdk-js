@@ -21,7 +21,7 @@ import {
     PublicEventResponse,
     UpdateEventRequest
 } from './dtos'
-import { Event, PictureSet, SubEventDetails } from './entities'
+import { Event, EventPlan, PictureSet, SubEventDetails } from './entities'
 
 
 /** The base class for content service errors. */
@@ -153,10 +153,11 @@ export interface ContentPrivateClient {
     /**
      * Create an event for the given user.
      * @param session - extra session information to be used by the service. For XSRF protection.
+     * @param plan - the plan for the event.
      * @return The new event attached to the user.
      * @throws When something bad happens in the communication, it raises {@link ContentError}.
      */
-    createEvent(session: Session): Promise<Event>;
+    createEvent(session: Session, plan: EventPlan): Promise<Event>;
 
     /**
      * Update the event for the user.
@@ -321,8 +322,9 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
             sessionToken);
     }
 
-    async createEvent(session: Session): Promise<Event> {
+    async createEvent(session: Session, plan: EventPlan): Promise<Event> {
         const createEventRequest = new CreateEventRequest();
+        createEventRequest.plan = plan;
 
         const options = this._buildOptions(ContentPrivateClientImpl._createEventOptions, session);
         options.headers['Content-Type'] = 'application/json';
