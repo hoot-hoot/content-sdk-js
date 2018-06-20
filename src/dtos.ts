@@ -6,6 +6,7 @@ import {
     ArrayOf,
     ExtractError,
     Marshaller,
+    MarshalEnum,
     MarshalFrom,
     MarshalWith,
     ObjectMarshaller,
@@ -14,6 +15,7 @@ import {
 
 import {
     Event,
+    EventPlan,
     PictureSet,
     PictureSetMarshaller,
     SubDomainMarshaller,
@@ -22,8 +24,28 @@ import {
 } from './entities'
 
 
+/** The data associated with preparing a subscription for a user. */
+export class PrepareEventSubscriptionRequest {
+    /** The plan the user has selected. */
+    @MarshalWith(MarshalEnum(EventPlan))
+    plan: EventPlan;
+}
+
+/** The response after preparing the request. */
+export class PrepareEventSubscriptionResponse {
+    /** The URI to redirect to in order to complete the subscription process. */
+    @MarshalWith(r.SecureWebUriMarshaller)
+    chargebeeRedirectUri: string;
+
+    @MarshalWith(r.BooleanMarshaller)
+    eventIsRemoved: boolean;
+}
+
 /** The data associated with a creation request. */
 export class CreateEventRequest {
+    /** The plan to create the event for. */
+    @MarshalWith(MarshalEnum(EventPlan))
+    plan: EventPlan;
 }
 
 /** The data associated with an update request. */

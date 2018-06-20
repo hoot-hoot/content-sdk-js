@@ -359,6 +359,15 @@ export class EventUiState {
     showSetupWizard: boolean;
 }
 
+/** Plans */
+export enum EventPlan {
+    /** The quick starter plan. */
+    QuickStarter = 'quick-starter',
+
+    /** The long term thinker plan. */
+    LongTermThinker = 'long-term-thinker'
+}
+
 
 /** Details about an event. */
 export class Event {
@@ -385,6 +394,10 @@ export class Event {
     /** UI state for the event. */
     @MarshalWith(MarshalFrom(EventUiState))
     uiState: EventUiState;
+
+    /** The plan for the event. */
+    @MarshalWith(MarshalEnum(EventPlan))
+    plan: EventPlan;
 
     /** The subdomain to use for the event. */
     @MarshalWith(SubDomainMarshaller)
