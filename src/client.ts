@@ -16,14 +16,12 @@ import { SessionToken } from '@truesparrow/identity-sdk-js/session-token'
 import {
     CheckSubDomainAvailableResponse,
     CreateEventRequest,
-    PrepareEventSubscriptionRequest,
-    PrepareEventSubscriptionResponse,
     PrivateEventResponse,
     PrivateEventResponseMarshaller,
     PublicEventResponse,
     UpdateEventRequest
 } from './dtos'
-import { Event, EventPlan, PictureSet, SubEventDetails } from './entities'
+import { Event, PictureSet, SubEventDetails } from './entities'
 
 
 /** The base class for content service errors. */
@@ -153,19 +151,6 @@ export interface ContentPrivateClient {
     withContext(sessionToken: SessionToken): ContentPrivateClient;
 
     /**
-     * Prepare a subscription on Chargebee and return a URI to redirect to to complete it.
-     * @param session - extra session information to be used by the service. For XSRF protection.
-     * @param plan - the plan the user will be signed up to.
-     * @return The URI to redirect to.
-     * @throws When the event already exists it raises, {@link EventAlreadyExistsForUserError}.
-     * @throws When the event has been deleted, it raises {@link DeletedEventForUserError}.
-     * @throws When the user is not authorized to perform the action, it raises {@link UnauthorizedContentError}.
-     * @throws When something bad happens in the communication, it raises {@link ContentError}.
-     */
-    prepareEventSubscription(session: Session, plan: EventPlan): Promise<string>;
-
-    /**
-
      * Create an event for the given user.
      * @param session - extra session information to be used by the service. For XSRF protection.
      * @return The new event attached to the user.
@@ -232,8 +217,6 @@ export function newContentPrivateClient(
     contentServiceHost: string,
     webFetcher: WebFetcher): ContentPrivateClient {
     const sessionTokenMarshaller = new (MarshalFrom(SessionToken))();
-    const prepareEventSubscriptionRequestMarshaller = new (MarshalFrom(PrepareEventSubscriptionRequest))();
-    const prepareEventSubscriptionResponseMarshaller = new (MarshalFrom(PrepareEventSubscriptionResponse))();
     const createEventRequestMarshaller = new (MarshalFrom(CreateEventRequest))();
     const updateEventRequestMarshaller = new (MarshalFrom(UpdateEventRequest))();
     const privateEventResponseMarshaller = new PrivateEventResponseMarshaller();
@@ -244,8 +227,6 @@ export function newContentPrivateClient(
         contentServiceHost,
         webFetcher,
         sessionTokenMarshaller,
-        prepareEventSubscriptionRequestMarshaller,
-        prepareEventSubscriptionResponseMarshaller,
         createEventRequestMarshaller,
         updateEventRequestMarshaller,
         privateEventResponseMarshaller,
@@ -254,13 +235,6 @@ export function newContentPrivateClient(
 
 
 class ContentPrivateClientImpl implements ContentPrivateClient {
-    private static readonly _prepareEventSubscriptionOptions: RequestInit = {
-        method: 'POST',
-        cache: 'no-cache',
-        redirect: 'error',
-        referrer: 'client',
-    };
-
     private static readonly _createEventOptions: RequestInit = {
         method: 'POST',
         cache: 'no-cache',
@@ -300,8 +274,6 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
     private readonly _contentServiceHost: string;
     private readonly _webFetcher: WebFetcher;
     private readonly _sessionTokenMarshaller: Marshaller<SessionToken>;
-    private readonly _prepareEventSubscriptionRequestMarshaller: Marshaller<PrepareEventSubscriptionRequest>;
-    private readonly _prepareEventSubscriptionResponseMarshaller: Marshaller<PrepareEventSubscriptionResponse>;
     private readonly _createEventRequestMarshaller: Marshaller<CreateEventRequest>;
     private readonly _updateEventRequestMarshaller: Marshaller<UpdateEventRequest>;
     private readonly _privateEventResponseMarshaller: Marshaller<PrivateEventResponse>;
@@ -313,8 +285,6 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
         contentServiceHost: string,
         webFetcher: WebFetcher,
         sessionTokenMarshaller: Marshaller<SessionToken>,
-        prepareEventSubscriptionRequestMarshaller: Marshaller<PrepareEventSubscriptionRequest>,
-        prepareEventSubscriptionResponseMarshaller: Marshaller<PrepareEventSubscriptionResponse>,
         createEventRequestMarshaller: Marshaller<CreateEventRequest>,
         updateEventRequestMarshaller: Marshaller<UpdateEventRequest>,
         privateEventResponseMarshaller: Marshaller<PrivateEventResponse>,
@@ -324,8 +294,6 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
         this._contentServiceHost = contentServiceHost;
         this._webFetcher = webFetcher;
         this._sessionTokenMarshaller = sessionTokenMarshaller;
-        this._prepareEventSubscriptionRequestMarshaller = prepareEventSubscriptionRequestMarshaller;
-        this._prepareEventSubscriptionResponseMarshaller = prepareEventSubscriptionResponseMarshaller;
         this._createEventRequestMarshaller = createEventRequestMarshaller;
         this._updateEventRequestMarshaller = updateEventRequestMarshaller;
         this._privateEventResponseMarshaller = privateEventResponseMarshaller;
@@ -346,49 +314,11 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
             this._contentServiceHost,
             this._webFetcher,
             this._sessionTokenMarshaller,
-            this._prepareEventSubscriptionRequestMarshaller,
-            this._prepareEventSubscriptionResponseMarshaller,
             this._createEventRequestMarshaller,
             this._updateEventRequestMarshaller,
             this._privateEventResponseMarshaller,
             this._checkSubDomainAvailableResponseMarshaller,
             sessionToken);
-    }
-
-    async prepareEventSubscription(session: Session, plan: EventPlan): Promise<string> {
-        const prepareEventSubscriptionRequest = new PrepareEventSubscriptionRequest();
-        prepareEventSubscriptionRequest.plan = plan;
-
-        const options = this._buildOptions(ContentPrivateClientImpl._prepareEventSubscriptionOptions, session);
-        options.headers['Content-Type'] = 'application/json';
-        options.body = JSON.stringify(this._prepareEventSubscriptionRequestMarshaller.pack(prepareEventSubscriptionRequest));
-
-        let rawResponse: Response;
-        try {
-            rawResponse = await this._webFetcher.fetch(`http://${this._contentServiceHost}/api/private/event-subscriptions`, options);
-        } catch (e) {
-            throw new ContentError(`Request failed because '${e.toString()}'`);
-        }
-
-        if (rawResponse.ok) {
-            try {
-                const jsonResponse = await rawResponse.json();
-                const prepareEventSubscriptionResponse = this._prepareEventSubscriptionResponseMarshaller.extract(jsonResponse);
-                if (prepareEventSubscriptionResponse.eventIsRemoved) {
-                    throw new EventRemovedError('Event already deleted');
-                }
-
-                return prepareEventSubscriptionResponse.chargebeeRedirectUri;
-            } catch (e) {
-                throw new ContentError(`JSON decoding error because '${e.toString()}'`);
-            }
-        } else if (rawResponse.status == HttpStatus.CONFLICT) {
-            throw new EventAlreadyExistsForUserError('User does not have a cause');
-        } else if (rawResponse.status == HttpStatus.UNAUTHORIZED) {
-            throw new UnauthorizedContentError('User is not authorized');
-        } else {
-            throw new ContentError(`Service response ${rawResponse.status}`);
-        }
     }
 
     async createEvent(session: Session): Promise<Event> {
