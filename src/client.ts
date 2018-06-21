@@ -174,6 +174,17 @@ export interface ContentPrivateClient {
     updateEvent(session: Session, updateOptions: UpdateEventOptions): Promise<Event>;
 
     /**
+     * Remove the event for the user.
+     * @param session - extra session information to be used by the service. For XSRF protection.
+     * @return nothing
+     * @throws When the event does not exist, it raises {@link NoEventForUserError}.
+     * @throws When the event has been deleted, it raises {@link DeletedEventForUserError}.
+     * @throws When the user is not authorized to perform the action, it raises {@link UnauthorizedContentError}.
+     * @throws When something bad happens in the communication, it raises {@link ContentError}.
+     */
+    deleteEvent(session: Session): Promise<void>;
+
+    /**
      * Mark the UI state of showing the setup wizard as done
      * @param session - extra session information to be used by the service. For XSRF protection
      * @return The updated event attached to the user.
@@ -245,6 +256,13 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
 
     private static readonly _updateEventOptions: RequestInit = {
         method: 'PUT',
+        cache: 'no-cache',
+        redirect: 'error',
+        referrer: 'client',
+    };
+
+    private static readonly _deleteEventOptions: RequestInit = {
+        method: 'DELETE',
         cache: 'no-cache',
         redirect: 'error',
         referrer: 'client',
@@ -388,6 +406,27 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
             throw new UnauthorizedContentError('User is not authorized');
         } else if (rawResponse.status == HttpStatus.CONFLICT) {
             throw new SubDomainInUseError('Subdomain is already in use');
+        } else if (rawResponse.status == HttpStatus.NOT_FOUND) {
+            throw new EventNotFoundError('User does not have a cause');
+        } else {
+            throw new ContentError(`Service response ${rawResponse.status}`);
+        }
+    }
+
+    async deleteEvent(session: Session): Promise<void> {
+        const options = this._buildOptions(ContentPrivateClientImpl._deleteEventOptions, session);
+
+        let rawResponse: Response;
+        try {
+            rawResponse = await this._webFetcher.fetch(`http://${this._contentServiceHost}/api/private/events`, options);
+        } catch (e) {
+            throw new ContentError(`Request failed because '${e.toString()}'`);
+        }
+
+        if (rawResponse.ok) {
+            return;
+        } else if (rawResponse.status == HttpStatus.UNAUTHORIZED) {
+            throw new UnauthorizedContentError('User is not authorized');
         } else if (rawResponse.status == HttpStatus.NOT_FOUND) {
             throw new EventNotFoundError('User does not have a cause');
         } else {

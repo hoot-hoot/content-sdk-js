@@ -399,6 +399,10 @@ export class Event {
     @MarshalWith(MarshalEnum(EventPlan))
     plan: EventPlan;
 
+    /** The URI of a hosted page on Chargebee for managing the payment methods etc. */
+    @MarshalWith(r.SecureWebUriMarshaller)
+    chargebeeManageAccountUri: string;
+
     /** The subdomain to use for the event. */
     @MarshalWith(SubDomainMarshaller)
     subDomain: string;
