@@ -6,7 +6,6 @@ import {
     ArrayOf,
     ExtractError,
     Marshaller,
-    MarshalEnum,
     MarshalFrom,
     MarshalWith,
     ObjectMarshaller,
@@ -27,7 +26,7 @@ import {
 /** The data associated with a creation request. */
 export class CreateEventRequest {
     /** The plan the event is using. */
-    @MarshalWith(MarshalEnum(EventPlan))
+    @MarshalWith(r.StringMarshaller)
     plan: EventPlan;
 }
 

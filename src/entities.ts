@@ -396,7 +396,7 @@ export class Event {
     uiState: EventUiState;
 
     /** The plan. */
-    @MarshalWith(MarshalEnum(EventPlan))
+    @MarshalWith(r.StringMarshaller)
     plan: EventPlan;
 
     /** The subdomain to use for the event. */
