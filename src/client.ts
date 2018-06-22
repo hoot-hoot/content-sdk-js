@@ -14,6 +14,7 @@ import {
 import { SessionToken } from '@truesparrow/identity-sdk-js/session-token'
 
 import {
+    ChargebeeManagePageResponse,
     CheckSubDomainAvailableResponse,
     CreateEventRequest,
     PrivateEventResponse,
@@ -213,6 +214,15 @@ export interface ContentPrivateClient {
      * @throws When something bad happens in the communication, it raises {@link ContentError}.
      */
     checkSubDomainAvailable(subDomain: string): Promise<boolean>;
+
+    /**
+     * Get the URI for the Chargebee management page.
+     * @return The URI for the Chargebee management page.
+     * @throws When the event does not exist, it raises {@link NoEventForUserError}.
+     * @throws When the user is not authorized to perform the action, it raises {@link UnauthorizedContentError}.
+     * @throws When something bad happens in the communication, it raises {@link ContentError}.
+     */
+    getChargebeeManagePageUri(): Promise<string>;
 }
 
 
@@ -233,6 +243,7 @@ export function newContentPrivateClient(
     const updateEventRequestMarshaller = new (MarshalFrom(UpdateEventRequest))();
     const privateEventResponseMarshaller = new PrivateEventResponseMarshaller();
     const checkSubDomainAvailableResponseMarshaller = new (MarshalFrom(CheckSubDomainAvailableResponse))();
+    const chargebeeManagePageResponse = new (MarshalFrom(ChargebeeManagePageResponse))();
 
     return new ContentPrivateClientImpl(
         origin,
@@ -242,7 +253,8 @@ export function newContentPrivateClient(
         createEventRequestMarshaller,
         updateEventRequestMarshaller,
         privateEventResponseMarshaller,
-        checkSubDomainAvailableResponseMarshaller);
+        checkSubDomainAvailableResponseMarshaller,
+        chargebeeManagePageResponse);
 }
 
 
@@ -289,6 +301,13 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
         referrer: 'client',
     };
 
+    private static readonly _getChargebeeManagementPageUriOptions: RequestInit = {
+        method: 'GET',
+        cache: 'no-cache',
+        redirect: 'error',
+        referrer: 'client',
+    };
+
     private readonly _origin: string;
     private readonly _contentServiceHost: string;
     private readonly _webFetcher: WebFetcher;
@@ -297,6 +316,7 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
     private readonly _updateEventRequestMarshaller: Marshaller<UpdateEventRequest>;
     private readonly _privateEventResponseMarshaller: Marshaller<PrivateEventResponse>;
     private readonly _checkSubDomainAvailableResponseMarshaller: Marshaller<CheckSubDomainAvailableResponse>;
+    private readonly _chargebeeManagePageResponseMarshaller: Marshaller<ChargebeeManagePageResponse>;
     private readonly _defaultHeaders: HeadersInit;
 
     constructor(
@@ -308,6 +328,7 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
         updateEventRequestMarshaller: Marshaller<UpdateEventRequest>,
         privateEventResponseMarshaller: Marshaller<PrivateEventResponse>,
         checkSubDomainAvailableResponseMarshaller: Marshaller<CheckSubDomainAvailableResponse>,
+        chargebeeManagePageResponseMarshaller: Marshaller<ChargebeeManagePageResponse>,
         sessionToken: SessionToken | null = null) {
         this._origin = origin;
         this._contentServiceHost = contentServiceHost;
@@ -316,6 +337,7 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
         this._createEventRequestMarshaller = createEventRequestMarshaller;
         this._updateEventRequestMarshaller = updateEventRequestMarshaller;
         this._privateEventResponseMarshaller = privateEventResponseMarshaller;
+        this._chargebeeManagePageResponseMarshaller = chargebeeManagePageResponseMarshaller;
         this._checkSubDomainAvailableResponseMarshaller = checkSubDomainAvailableResponseMarshaller;
 
         this._defaultHeaders = {
@@ -337,6 +359,7 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
             this._updateEventRequestMarshaller,
             this._privateEventResponseMarshaller,
             this._checkSubDomainAvailableResponseMarshaller,
+            this._chargebeeManagePageResponseMarshaller,
             sessionToken);
     }
 
@@ -521,6 +544,34 @@ class ContentPrivateClientImpl implements ContentPrivateClient {
             }
         } else if (rawResponse.status == HttpStatus.UNAUTHORIZED) {
             throw new UnauthorizedContentError('User is not authorized');
+        } else {
+            throw new ContentError(`Service response ${rawResponse.status}`);
+        }
+    }
+
+    async getChargebeeManagePageUri(): Promise<string> {
+        const options = this._buildOptions(ContentPrivateClientImpl._getChargebeeManagementPageUriOptions);
+
+        let rawResponse: Response;
+        try {
+            rawResponse = await this._webFetcher.fetch(`http://${this._contentServiceHost}/api/private/events/chargebee-management-page-uri`, options);
+        } catch (e) {
+            throw new ContentError(`Request failed because '${e.toString()}'`);
+        }
+
+        if (rawResponse.ok) {
+            try {
+                const jsonResponse = await rawResponse.json();
+                const chargebeeManagementPageUriResponse = this._chargebeeManagePageResponseMarshaller.extract(jsonResponse);
+
+                return chargebeeManagementPageUriResponse.manageAccountUri;
+            } catch (e) {
+                throw new ContentError(`JSON decoding error because '${e.toString()}'`);
+            }
+        } else if (rawResponse.status == HttpStatus.UNAUTHORIZED) {
+            throw new UnauthorizedContentError('User is not authorized');
+        } else if (rawResponse.status == HttpStatus.NOT_FOUND) {
+            throw new EventNotFoundError('User does not have a cause');
         } else {
             throw new ContentError(`Service response ${rawResponse.status}`);
         }

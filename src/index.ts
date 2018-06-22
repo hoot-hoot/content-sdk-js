@@ -2,6 +2,7 @@ export {
     AddressErrorReason,
     AddressMarshaller,
     Event,
+    EventPlan,
     EventState,
     EventUiState,
     Image,

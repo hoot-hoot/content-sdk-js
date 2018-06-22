@@ -74,6 +74,13 @@ export class CheckSubDomainAvailableResponse {
     available: boolean;
 }
 
+/** Details for subscription management via Chargebee */
+export class ChargebeeManagePageResponse {
+    /** The manage hosted page account. */
+    @MarshalWith(r.SecureWebUriMarshaller)
+    manageAccountUri: string;
+}
+
 /**
  * A marshaller for {@link PrivateEventResponse}. Does a bit more than a standard object marshaller.
  * For example, it makes sure that when the event is removed there's really no data attached.

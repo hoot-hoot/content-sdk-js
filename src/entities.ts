@@ -4,7 +4,6 @@
 import {
     ArrayOf,
     ExtractError,
-    OptionalOf,
     Marshaller,
     MarshalEnum,
     MarshalFrom,
@@ -399,10 +398,6 @@ export class Event {
     /** The plan. */
     @MarshalWith(MarshalEnum(EventPlan))
     plan: EventPlan;
-
-    /** The URI of a hosted page on Chargebee for managing the payment methods etc. */
-    @MarshalWith(OptionalOf(r.SecureWebUriMarshaller))
-    chargebeeManageAccountUri: string | null;
 
     /** The subdomain to use for the event. */
     @MarshalWith(SubDomainMarshaller)
